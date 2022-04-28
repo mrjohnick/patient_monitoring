@@ -1,16 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import colors from "./assets/colors/colors";
+
 import Home from "./components/Home";
 import Export from "./components/Export";
 import Profile from "./components/Profile";
 import newPasient from "./components/newPasient";
 import BloodPressure from "./components/BloodPressure";
-import colors from "./assets/colors/colors";
-import Ionicons from "react-native-vector-icons/Ionicons";
-
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Login from "./components/Login";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -60,12 +64,16 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
+        <Stack.Screen name="Patient Monitoring" component={TabNavigator} options={{headerShown: false}} />
         <Stack.Screen name="BloodPressure" component={BloodPressure} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
+export default App;
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -73,4 +81,75 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+/*import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+
+import colors from "./assets/colors/colors";
+
+import Home from "./components/Home";
+import Export from "./components/Export";
+import Profile from "./components/Profile";
+import newPasient from "./components/newPasient";
+import BloodPressure from "./components/BloodPressure";
+import Login from "./components/Login";
+
+
+import FirebaseKeys from "./firebase";
+
+const tabNavigator = createBottomTabNavigator(
+  {
+    Home: {
+    screen: Home,
+    BottomTabNavigationOptions: {
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home-outline" size={28} color={color} />
+          ),
+      }
+    },
+    Export: {
+      screen: Export,
+      BottomTabNavigationOptions: {
+      options: {
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="download-outline" size={28} color={color} />
+          ),
+      }
+      }
+    },
+    Profile: {
+      screen: Profile,
+      BottomTabNavigationOptions: {
+        tabBarIcon: ({ color }) => (
+          <Ionicons name="person-outline" size={28} color={color} />
+        ),
+      }
+    }
+  },
+  {
+    tabBarOptions: {
+      style: StyleSheet.tabBar,
+      activeTintColor: colors.blue,
+      inactiveTintColor: colors.grey1,
+      showLabel: false,
+    }
+  }
+);
+
+const authStack = createStackNavigator ({
+  Login: Login,
+});
+
+export default tabNavigator (
+  createSwitchNavigator({
+    Home: Home,
+    Profile: Profile
+  }
+  )
+)
+*/
