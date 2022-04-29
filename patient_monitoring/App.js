@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import colors from "./assets/colors/colors";
 
 import Home from "./components/Home";
@@ -20,6 +21,8 @@ import Login from "./components/Login";
 =======
 =======
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
+=======
+>>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
 import {
   useFonts,
   Montserrat_500Medium,
@@ -27,6 +30,9 @@ import {
 } from "@expo-google-fonts/montserrat";
 import AppLoading from "expo-app-loading";
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
+=======
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
 =======
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
@@ -91,11 +97,14 @@ const App = () => {
       <Stack.Navigator>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Stack.Screen name="Patient Monitoring" component={TabNavigator} options={{headerShown: false}} />
         <Stack.Screen name="BloodPressure" component={BloodPressure} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Profile" component={Profile} />
 =======
+=======
+>>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
 =======
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
         <Stack.Screen
@@ -109,6 +118,9 @@ const App = () => {
           options={{ headerShown: false }}
         />
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
+=======
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
 =======
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
