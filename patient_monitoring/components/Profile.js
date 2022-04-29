@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase'
-import Login from "./Login";
+import * as Login from "./Login";
 import TabNavigator from "../App";
 
 
@@ -18,8 +18,8 @@ const Profile = () => {
     .catch(error => alert(error.message))
   }
   return (
-    TabNavigator, 
       <View style={styles.container}>
+        <Text>Welcome {auth.currentUser?.email} </Text>
         <TouchableOpacity
           onPress={handleSignOut}
           style={styles.button}
