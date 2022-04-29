@@ -11,8 +11,13 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@react-native-firebase/app": "^14.9.0",
     "@react-native-firebase/auth": "^14.9.0",
+=======
+    "@expo-google-fonts/montserrat": "^0.2.2",
+    "@react-native-picker/picker": "2.2.1",
+>>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
 =======
     "@expo-google-fonts/montserrat": "^0.2.2",
     "@react-native-picker/picker": "2.2.1",
@@ -37,15 +42,22 @@
     "react-native-material-dropdown": "^0.11.1",
     "react-native-modal-dropdown": "^1.0.2",
     "react-native-picker-select": "^8.0.4",
+<<<<<<< HEAD
+>>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
+=======
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-navigation-tabs": "^2.11.2"
+=======
+    "sharingan-rn-modal-dropdown": "^1.4.0"
+>>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
 =======
     "sharingan-rn-modal-dropdown": "^1.4.0"
 >>>>>>> d775e067a7972f63fb957acdc42cfa6e864b6b57
