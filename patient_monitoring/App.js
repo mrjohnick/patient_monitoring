@@ -12,6 +12,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import {
+  useFonts,
+  Montserrat_500Medium,
+  Montserrat_400Regular,
+} from "@expo-google-fonts/montserrat";
+import AppLoading from "expo-app-loading";
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +31,7 @@ const TabNavigator = () => {
         inactiveTintColor: colors.grey1,
         showLabel: false,
       }}
+      screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
         name="Home"
@@ -57,11 +65,28 @@ const TabNavigator = () => {
 };
 
 const App = () => {
+  let [fontsLoaded] = useFonts({
+    Montserrat_500Medium,
+    Montserrat_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="TabNavigator" component={TabNavigator} />
-        <Stack.Screen name="BloodPressure" component={BloodPressure} />
+        <Stack.Screen
+          name="TabNavigator"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="BloodPressure"
+          component={BloodPressure}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
