@@ -15,7 +15,7 @@ const Login = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
         if (user) {
-            navigation.replace("Patient Monitoring")
+            navigation.replace("TabNavigator")
         }
         })
 
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        fontFamily: 'Gill Sans',
+        fontFamily: 'Montserrat_500Medium',
     },
     inputContainer:{
         width: '80%',
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1.5,
         borderBottomColor: '#696969',
         fontSize: 15,
-        fontFamily: 'Gill Sans',
+        fontFamily: 'Montserrat_500Medium',
     },
     buttonContainer:{
        top: 30, 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     },
     button:{
         color: 'white',
-        fontFamily: 'Gill Sans',
+        fontFamily: 'Montserrat_500Medium',
         fontSize: 15,
         textAlign: 'center',
         width: '100%',
