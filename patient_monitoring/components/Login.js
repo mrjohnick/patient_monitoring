@@ -15,7 +15,7 @@ const Login = () => {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
         if (user) {
-            navigation.replace("Patient Monitoring")
+            navigation.replace("TabNavigator")
         }
         })
 
