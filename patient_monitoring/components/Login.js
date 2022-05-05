@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+
 import Profile from "./Profile";
 import NewPassowrd from "./NewPassword";
 
@@ -33,9 +35,8 @@ const Login = () => {
       }
     
     return(
-        <KeyboardAvoidingView
+        <View
             style={styles.container}
-            behavior="padding"
         >
             <View style={styles.inputContainer}>
                 <TextInput
@@ -43,6 +44,7 @@ const Login = () => {
                     value={email}
                     keyboardType='email-address'
                     onChangeText={text => setEmail(text)}
+                    autoCapitalize= "none"
                     style={styles.input}
                 />
                 <TextInput
@@ -53,9 +55,9 @@ const Login = () => {
                     secureTextEntry
                 />
                 <TouchableOpacity 
-                    onPress={() => {navigation.replace("NewPassword")}}
+                    onPress={() => {navigation.navigate("NewPassword")}}
                 >
-                    <Text style={{color:'#7B68EE', marginTop: 10}}>Forgot password?</Text>
+                    <Text style={{color:'blue', marginTop: 10}}>Forgot password?</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.logoContainer}>
@@ -74,7 +76,7 @@ const Login = () => {
                     <Text style={styles.button}>Log in</Text>
                 </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView>
+        </View>
     )
 }
 

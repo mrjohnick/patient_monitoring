@@ -2,23 +2,19 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { KeyboardAvoidingView, StyleSheet, Text, TextInput, View, TouchableOpacity } from "react-native";
 
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../firebase";
+
 const NewPassword = () => {
+  const navigation = useNavigation()
   const [email, setEmail] = useState('')
 
-  const navigation = useNavigation()
-
-  const handlePasswordChange = () => {
-    
-  }
-
   const forgotPassword = () => {
-    sendPasswordResetEmail(email)
-      .then(function() {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
         alert('Please check your email...')
       })
-      .catch(function (error) {
-        console.log('wtf', error.message)
-      })
+      .catch(error => alert(error.message));
   }
   return (
     <KeyboardAvoidingView 
@@ -26,20 +22,23 @@ const NewPassword = () => {
       behavior="padding"
     >
       <View>
-        <Text style={styles.text}>Write an email and we will send you an email to reset your password</Text>
+        <Text style={styles.text}>Write an email address and we will send you an email to reset your password</Text>
       </View>
       <View style={styles.newPassInputContainer}>
         <TextInput
-        value={email}
-        placeholder="Email"
-        keyboardType="email-address"
-        style={styles.newPassInput}
+          value={email}
+          placeholder="Email"
+          keyboardType="email-address"
+          onChangeText={text => setEmail(text)}
+          autoCapitalize= "none"
+          style={styles.newPassInput}
         >
           
         </TextInput>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
+            onPress={forgotPassword}
             style={styles.button}
         >
             <Text style={styles.button}>Send</Text>
