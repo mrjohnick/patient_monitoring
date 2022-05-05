@@ -4,4 +4,7 @@ npm install firebase/auth
 npm install firebase/app
 npm install @react-navigation/native-stack
 npm install @react-navigation/bottom-tabs
-npm install @react-navigation/native-stack
+npm install @react-navigation/native
+expo install react-native-screens react-native-safe-area-context
+npm install --save react-native-vector-icons
+npm install react-native-chart-kit

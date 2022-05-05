@@ -9,15 +9,18 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Modal,
+  Dimensions,
+  TouchableWithoutFeedback,
 } from "react-native";
 import colors from "../assets/colors/colors";
 import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
 import profile from "../assets/images/person.png";
-
+import { MaterialIcons } from '@expo/vector-icons';
 import Dropdown from "../components/Dropdown";
-
+import { BarChart, LineChart } from "react-native-chart-kit";
 // Firebase imports
 import { db } from "../firebase";
 import {
@@ -31,17 +34,22 @@ import {
 } from "firebase/firestore";
 
 // Global arrays for charts, each value initialized to 0
-const heartGraph = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-const breathGraph = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-const oxygenGraph = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const heartGraph = [71, 68, 72, 66, 81, 75, 89, 85, 83, 79];
+const breathGraph = [14, 13, 12, 14, 13, 15, 13, 14, 15, 16];
+const oxygenGraph = [98, 97, 98, 96, 95, 95, 94, 95, 96, 97];
 
 const Home = ({ navigation }) => {
   const [room, setRoom] = useState("Unknown");
 
   // use states for data
-  const [heart, setHeart] = useState(0);
-  const [breath, setBreath] = useState(0);
-  const [oxygen, setOxygen] = useState(0);
+  const [heart, setHeart] = useState(61);
+  const [breath, setBreath] = useState(13);
+  const [oxygen, setOxygen] = useState(97);
+   
+ // for open/close modals
+  const [hmodalOpen, SetHmodalOpen] = useState(false);
+  const [bmodalOpen, SetBmodalOpen] = useState(false);
+  const [omodalOpen, SetOmodalOpen] = useState(false);
 
   // firebase ref
   const [patients, setPatients] = useState([]);
@@ -121,6 +129,64 @@ const Home = ({ navigation }) => {
     a.length = a.length < 10 ? a.length : 10;
   }
 
+// Chart stuff
+
+  // Labels ("m" is appended in the actual chart)
+  let labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+
+  // Data for each chart, maybe try to put all of it in one const(?)
+  const dataHeart = {
+    labels: labels,
+
+    datasets: [
+      {
+        data: heartGraph,
+      },
+    ],
+  };
+
+  const dataBreath = {
+    labels: labels,
+
+    datasets: [
+      {
+        data: breathGraph,
+      },
+    ],
+  };
+
+  const dataOxygen = {
+    labels: labels,
+
+    datasets: [
+      {
+        data: oxygenGraph,
+      },
+    ],
+  };
+
+  const chartConfig = {
+    backgroundColor: "#e26a00",
+    backgroundGradientFrom: "white",
+    backgroundGradientTo: "white",
+    backgroundGradientFromOpacity: 0, // to remove the opacity
+    backgroundGradientToOpacity: 0, // remove opacity
+    barPercentage: 0.5,
+    decimalPlaces: 2, // optional, defaults to 2dp
+    color: (opacity = 1) => `rgba(239, 28, 66, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(108, 110, 115, ${opacity})`,
+    style: {
+      borderRadius: 16,
+    },
+    propsForDots: {
+      r: "6",
+      strokeWidth: "2",
+      stroke: "#ffa726",
+    },
+  };
+
+
+
   return (
     <View>
       <ScrollView>
@@ -169,7 +235,41 @@ const Home = ({ navigation }) => {
                 <View>
                   {patient.room == "1" ? (
                     <View>
-                      <TouchableOpacity>
+                      <Modal visible={hmodalOpen} animationType='fade' transparent={true}>
+                        <View style={styles.modalBackround}>                       
+                          <View style={styles.modalContainer}> 
+                            <MaterialIcons 
+                              name='close'
+                              size={40}
+                              style={styles.modalClose}
+                              onPress={() => SetHmodalOpen(false)}
+                            />
+                            <View>
+                                <LineChart
+                                  data={dataHeart}
+                                  width={Dimensions.get("screen").width}
+                                  height={Dimensions.get("screen").height / 3}
+                                  yAxisLabel=""
+                                  yAxisSuffix=""
+                                  xAxisLabel="m"
+                                  yAxisInterval={1} // optional, defaults to 1
+                                  chartConfig={chartConfig}
+                                  fromNumber={100} // max value
+                                  fromZero={true} // min value
+                                  withDots={false} // removes dots
+                                  withInnerLines={false} // removes the grid on the chart
+                                  withShadow={false} // removes the shadow under the line, default true
+                                  bezier
+                                  style={{
+                                    marginVertical: 8,
+                                    borderRadius: 16,
+                                  }}
+                                /> 
+                            </View>
+                          </View>
+                        </View>
+                      </Modal>
+                      <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
                         <View style={styles.measurementsItem}>
                           <View style={styles.measurementheader}>
                             <Text style={styles.measurementsTitles}>
@@ -181,8 +281,44 @@ const Home = ({ navigation }) => {
                               size={24}
                             />
                           </View>
+                            <View style={styles.liveMeasurement}>
 
-                          <View style={styles.liveMeasurement}>
+                            <Modal visible={omodalOpen} animationType='fade' transparent={true}>
+                              <View style={styles.modalBackround}>
+                                <View style={styles.modalContainer}> 
+                                  <MaterialIcons 
+                                    name='close'
+                                    size={40}
+                                    style={styles.modalClose}
+                                    onPress={() => SetOmodalOpen(false)}
+                                  />
+                                <View>
+                                <LineChart
+                                  data={dataOxygen}
+                                  width={Dimensions.get("screen").width}
+                                  height={Dimensions.get("screen").height / 3}
+                                  yAxisLabel=""
+                                  yAxisSuffix=""
+                                  xAxisLabel="m"
+                                  yAxisInterval={1} // optional, defaults to 1
+                                  chartConfig={chartConfig}
+                                  fromNumber={100} // max value
+                                  fromZero={true} // min value
+                                  withDots={false} // removes dots
+                                  withInnerLines={false} // removes the grid on the chart
+                                  withShadow={false} // removes the shadow under the line, default true
+                                  bezier
+                                  style={{
+                                    marginVertical: 8,
+                                    borderRadius: 16,
+                                  }}
+                                />
+                                </View>
+                              </View>
+                          </View>
+                        </Modal>
+
+
                             <Text style={styles.liveMeasurementTitle}>
                               {patient.Heart}
                             </Text>
@@ -194,7 +330,7 @@ const Home = ({ navigation }) => {
                           </View>
                         </View>
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
                         <View style={styles.measurementsItem}>
                           <View style={styles.measurementheader}>
                             <Text style={styles.measurementsTitles}>
@@ -208,6 +344,42 @@ const Home = ({ navigation }) => {
                           </View>
 
                           <View style={styles.liveMeasurement}>
+
+                          <Modal visible={bmodalOpen} animationType='fade' transparent={true}>
+                            <View style={styles.modalBackround}>
+                              <View style={styles.modalContainer}> 
+                                <MaterialIcons 
+                                  name='close'
+                                  size={40}
+                                  style={styles.modalClose}
+                                  onPress={() => SetBmodalOpen(false)}
+                                />
+                                  <View>
+                                    <LineChart
+                                      data={dataBreath}
+                                      width={Dimensions.get("screen").width}
+                                      height={Dimensions.get("screen").height / 3}
+                                      yAxisLabel=""
+                                      yAxisSuffix=""
+                                      xAxisLabel="m"
+                                      yAxisInterval={1} // optional, defaults to 1
+                                      chartConfig={chartConfig}
+                                      fromNumber={100} // max value
+                                      fromZero={true} // min value
+                                      withDots={false} // removes dots
+                                      withInnerLines={false} // removes the grid on the chart
+                                      withShadow={false} // removes the shadow under the line, default true
+                                      bezier
+                                      style={{
+                                        marginVertical: 8,
+                                        borderRadius: 16,
+                                      }}
+                                    />
+                                  </View>
+                              </View>
+                            </View>
+                          </Modal>
+
                             <Text style={styles.liveMeasurementTitle}>
                               {patient.Oxygen}%
                             </Text>
@@ -219,7 +391,7 @@ const Home = ({ navigation }) => {
                           </View>
                         </View>
                       </TouchableOpacity>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
                         <View style={styles.measurementsItem}>
                           <View style={styles.measurementheader}>
                             <Text style={styles.measurementsTitles}>
@@ -363,6 +535,25 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 14,
   },
+  modalBackround:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  modalContainer:{
+    height: '50%',
+    marginTop: 'auto',
+    backgroundColor:'white',
+  },
+  modalClose: {
+    marginTop: 0,
+    borderColor: '#f2f2f2',
+    padding: 10, 
+    borderRadius: 10,
+    alignSelf: 'center',
+  },
+
 });
 
 export default Home;
