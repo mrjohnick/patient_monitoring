@@ -572,7 +572,7 @@ const styles = StyleSheet.create({
     width: 100,
     marginBottom: 20,
     marginLeft: 40,
-    marginTop: 12,
+    marginTop: 30,
    
   },
   img2:{
