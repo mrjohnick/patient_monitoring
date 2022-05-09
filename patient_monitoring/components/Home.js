@@ -271,18 +271,27 @@ const Home = ({ navigation }) => {
                       </Modal>
                       <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
                         <View style={styles.measurementsItem}>
-                          <View style={styles.measurementheader}>
-                            <Text style={styles.measurementsTitles}>
-                              Heart Rate (BPM)
-                            </Text>
+                         <View style={styles.measurementheader}>
+                          <View style={styles.rowcontainer}>                                                                    
+                             <View style={styles.allmeasurementsContainer}>
+                              <Text style={styles.measurementsTitles}>
+                              Heart Rate (BPM)</Text>
+                             <Text style={styles.liveMeasurementTitle}>
+                              {patient.Heart}</Text>
+                              <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
+                            </View>
+                            <Image
+                              style={styles.img} 
+                              source = {require('../assets/images/heart_rate.png')} 
+                              />                         
+                          </View>
                             <Ionicicon
                               name={"chevron-forward-outline"}
                               style={styles.arrowIcon}
                               size={24}
                             />
-                          </View>
+                         </View>                     
                             <View style={styles.liveMeasurement}>
-
                             <Modal visible={omodalOpen} animationType='fade' transparent={true}>
                               <View style={styles.modalBackround}>
                                 <View style={styles.modalContainer}> 
@@ -314,33 +323,35 @@ const Home = ({ navigation }) => {
                                   }}
                                 />
                                 </View>
-                              </View>
-                          </View>
-                        </Modal>
-
-
-                            <Text style={styles.liveMeasurementTitle}>
-                              {patient.Heart}
-                            </Text>
-                          </View>
-                          <View style={styles.lastUpdated}>
-                            <Text style={styles.lastUpdatedTitle}>
-                              1 min ago
-                            </Text>
                           </View>
                         </View>
+                        </Modal> 
+                                                                                          
+                            
+                        </View>
+                        </View> 
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
                         <View style={styles.measurementsItem}>
                           <View style={styles.measurementheader}>
-                            <Text style={styles.measurementsTitles}>
-                              Blood Oxygen (SPO2)
-                            </Text>
-                            <Ionicicon
+                          <View style={styles.rowcontainer}>                                                                    
+                             <View style={styles.allmeasurementsContainer}>
+                              <Text style={styles.measurementsTitles}>
+                              Blood Oxygen (SPO2)</Text>
+                             <Text style={styles.liveMeasurementTitle}>
+                              {patient.Oxygen}</Text>
+                              <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
+                            </View>
+                            <Image
+                              style={styles.img2} 
+                              source = {require('../assets/images/o2.png')} 
+                              />                   
+                                </View>
+                              <Ionicicon
                               name={"chevron-forward-outline"}
                               style={styles.arrowIcon}
                               size={24}
-                            />
+                            />  
                           </View>
 
                           <View style={styles.liveMeasurement}>
@@ -380,44 +391,39 @@ const Home = ({ navigation }) => {
                             </View>
                           </Modal>
 
-                            <Text style={styles.liveMeasurementTitle}>
-                              {patient.Oxygen}%
-                            </Text>
+                           
                           </View>
-                          <View style={styles.lastUpdated}>
-                            <Text style={styles.lastUpdatedTitle}>
-                              1 min ago
-                            </Text>
-                          </View>
+                          
                         </View>
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
                         <View style={styles.measurementsItem}>
                           <View style={styles.measurementheader}>
-                            <Text style={styles.measurementsTitles}>
-                              Breath Rate
-                            </Text>
+                           <View style={styles.rowcontainer}>                                                                    
+                              <View style={styles.allmeasurementsContainer}>
+                                <Text style={styles.measurementsTitles}>
+                                Breath Rate</Text>
+                                <Text style={styles.liveMeasurementTitle}>
+                                {patient.Breath}</Text>
+                                <Text style={styles.breathsPerMinuteTitle}>
+                                breaths/min
+                                </Text>
+                                <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
+
+                              </View>
+                            <Image
+                              style={styles.img3} 
+                              source = {require('../assets/images/lung.png')} 
+                              />                   
+                                </View> 
+                            
                             <Ionicicon
                               name={"chevron-forward-outline"}
                               style={styles.arrowIcon}
                               size={24}
                             />
                           </View>
-                          <View style={styles.liveMeasurementBreathRate}>
-                            <Text style={styles.liveMeasurementTitle}>
-                              {patient.Breath}
-                            </Text>
-                          </View>
-                          <View style={styles.breathsPerMinute}>
-                            <Text style={styles.breathsPerMinuteTitle}>
-                              breaths/min
-                            </Text>
-                          </View>
-                          <View style={styles.lastUpdated}>
-                            <Text style={styles.lastUpdatedTitle}>
-                              1 min ago
-                            </Text>
-                          </View>
+  
                         </View>
                       </TouchableOpacity>
                     </View>
@@ -492,26 +498,28 @@ const styles = StyleSheet.create({
   measurementsTitles: {
     fontFamily: "Montserrat_500Medium",
     fontSize: 14,
-    marginLeft: 14,
+    marginLeft: 0,
     marginTop: 14,
+    marginBottom: 35,
   },
   measurementsItem: {
     width: 350,
-    height: 136,
-    marginTop: 18,
+    height: 150,
+    marginTop: 10,
     backgroundColor: colors.white1,
     borderRadius: 6,
   },
   liveMeasurement: {
-    marginTop: 40,
+    marginTop: 0,
     marginLeft: 14,
   },
   liveMeasurementTitle: {
     fontFamily: "Montserrat_500Medium",
     fontSize: 22,
+    marginBottom: 8,
   },
   lastUpdated: {
-    marginTop: 2,
+    marginTop: 10,
     marginLeft: 14,
   },
   lastUpdatedTitle: {
@@ -552,6 +560,48 @@ const styles = StyleSheet.create({
     padding: 10, 
     borderRadius: 10,
     alignSelf: 'center',
+  },
+  iconContainer:{
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  img:{
+    height: 100,
+    flexDirection:'row',
+    width: 100,
+    marginBottom: 20,
+    marginLeft: 40,
+    marginTop: 30,
+   
+  },
+  img2:{
+    height: 90,
+    flexDirection:'row',
+    width: 90,
+    marginBottom: 20,
+    marginLeft: 27,
+    marginTop: 30,
+    marginRight: 20,
+   
+  },
+  img3:{
+    height: 100,
+    flexDirection:'row',
+    width: 100,
+    marginBottom: 20,
+    marginLeft: 80,
+    marginTop: 20,
+   
+  },
+  
+  rowcontainer:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: "wrap",
+  }, 
+  allmeasurementsContainer:{
+   marginLeft:14,
   },
 
 });
