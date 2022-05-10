@@ -21,6 +21,7 @@ import profile from "../assets/images/person.png";
 import { MaterialIcons } from '@expo/vector-icons';
 import Dropdown from "../components/Dropdown";
 import { BarChart, LineChart } from "react-native-chart-kit";
+import { LogBox } from 'react-native';
 // Firebase imports
 import { db } from "../firebase";
 import {
@@ -71,6 +72,7 @@ const Home = ({ navigation }) => {
       handleHeart();
       handleBreath();
       handleOxygen();
+      LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
@@ -254,7 +256,7 @@ const Home = ({ navigation }) => {
                                   xAxisLabel="m"
                                   yAxisInterval={1} // optional, defaults to 1
                                   chartConfig={chartConfig}
-                                  fromNumber={100} // max value
+                                  fromNumber={180} // max value
                                   fromZero={true} // min value
                                   withDots={false} // removes dots
                                   withInnerLines={false} // removes the grid on the chart
@@ -375,7 +377,7 @@ const Home = ({ navigation }) => {
                                       xAxisLabel="m"
                                       yAxisInterval={1} // optional, defaults to 1
                                       chartConfig={chartConfig}
-                                      fromNumber={100} // max value
+                                      fromNumber={50} // max value
                                       fromZero={true} // min value
                                       withDots={false} // removes dots
                                       withInnerLines={false} // removes the grid on the chart
@@ -572,29 +574,25 @@ const styles = StyleSheet.create({
     width: 100,
     marginBottom: 20,
     marginLeft: 40,
-    marginTop: 30,
-   
+    marginTop: 30, 
   },
   img2:{
-    height: 90,
+    height: 80,
     flexDirection:'row',
-    width: 90,
+    width: 80,
     marginBottom: 20,
     marginLeft: 27,
     marginTop: 30,
     marginRight: 20,
-   
   },
   img3:{
-    height: 100,
+    height: 80,
     flexDirection:'row',
-    width: 100,
+    width: 80,
     marginBottom: 20,
-    marginLeft: 80,
-    marginTop: 20,
-   
+    marginLeft: 85,
+    marginTop: 30,
   },
-  
   rowcontainer:{
     flexDirection: 'row',
     justifyContent: 'space-between',
