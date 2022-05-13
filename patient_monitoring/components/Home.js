@@ -47,14 +47,29 @@ const Home = ({ navigation }) => {
   const [breath, setBreath] = useState(13);
   const [oxygen, setOxygen] = useState(97);
    
- // for open/close modals
+  // for open/close modals
   const [hmodalOpen, SetHmodalOpen] = useState(false);
   const [bmodalOpen, SetBmodalOpen] = useState(false);
   const [omodalOpen, SetOmodalOpen] = useState(false);
+  // useState for counter
+  const [counter, setCounter] = useState(0);
 
   // firebase ref
   const [patients, setPatients] = useState([]);
   const patientsCollectionRef = collection(db, "patients");
+
+// useEffect so counter counts up 1, for each second
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCounter((counter) => counter + 1);
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+   };
+  }, []);
+
+
 
   // Number gen, dont need to to touch
   function randomNumberInRange(min, max) {
@@ -72,6 +87,7 @@ const Home = ({ navigation }) => {
       handleHeart();
       handleBreath();
       handleOxygen();
+      setCounter(0);
       LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
     }, MINUTE_MS);
 
@@ -280,7 +296,7 @@ const Home = ({ navigation }) => {
                               Heart Rate (BPM)</Text>
                              <Text style={styles.liveMeasurementTitle}>
                               {patient.Heart}</Text>
-                              <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
+                              <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
                             </View>
                             <Image
                               style={styles.img} 
@@ -342,7 +358,7 @@ const Home = ({ navigation }) => {
                               Blood Oxygen (SPO2)</Text>
                              <Text style={styles.liveMeasurementTitle}>
                               {patient.Oxygen}</Text>
-                              <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
+                              <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
                             </View>
                             <Image
                               style={styles.img2} 
@@ -410,7 +426,7 @@ const Home = ({ navigation }) => {
                                 <Text style={styles.breathsPerMinuteTitle}>
                                 breaths/min
                                 </Text>
-                                <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
+                                <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
 
                               </View>
                             <Image
