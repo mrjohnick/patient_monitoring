@@ -87,7 +87,7 @@ useEffect(() => {
       handleHeart();
       handleBreath();
       handleOxygen();
-      setCounter(0);
+      
       LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
     }, MINUTE_MS);
 
@@ -113,6 +113,7 @@ useEffect(() => {
   const room1Handler = async (heart, breath, oxygen) => {
     const patientsDoc = doc(db, "patients", "room1");
     const newFields = { Heart: heart, Breath: breath, Oxygen: oxygen };
+    setCounter(0);
     await updateDoc(patientsDoc, newFields);
   };
 
