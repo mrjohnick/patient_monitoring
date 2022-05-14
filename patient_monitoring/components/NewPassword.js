@@ -17,7 +17,7 @@ const NewPassword = () => {
       .catch(error => alert(error.message));
   }
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={styles.container}
       behavior="padding"
     >
@@ -30,18 +30,18 @@ const NewPassword = () => {
           placeholder="Email"
           keyboardType="email-address"
           onChangeText={text => setEmail(text)}
-          autoCapitalize= "none"
+          autoCapitalize="none"
           style={styles.newPassInput}
         >
-          
+
         </TextInput>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-            onPress={forgotPassword}
-            style={styles.button}
+          onPress={forgotPassword}
+          style={styles.button}
         >
-            <Text style={styles.button}>Send</Text>
+          <Text style={styles.button}>Send</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -51,7 +51,7 @@ const NewPassword = () => {
 export default NewPassword;
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -78,20 +78,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     bottom: 90
   },
-  buttonContainer:{
+  buttonContainer: {
     borderRadius: 50,
     width: '80%',
     bottom: 70,
- },
- button:{
-     color: 'white',
-     fontFamily: 'Montserrat_500Medium',
-     fontSize: 15,
-     textAlign: 'center',
-     width: '100%',
-     backgroundColor: '#4166f5',
-     padding: 8,
-     borderRadius: 25,
- },
+  },
+  button: {
+    color: 'white',
+    fontFamily: 'Montserrat_500Medium',
+    fontSize: 15,
+    textAlign: 'center',
+    width: '100%',
+    backgroundColor: '#4166f5',
+    padding: 8,
+    borderRadius: 25,
+  },
 })
 

@@ -3,8 +3,6 @@ import { View, Text, StyleSheet } from "react-native";
 import Home from "./components/Home";
 import Export from "./components/Export";
 import Profile from "./components/Profile";
-import newPasient from "./components/newPasient";
-import BloodPressure from "./components/BloodPressure";
 import colors from "./assets/colors/colors";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Login from "./components/Login";
@@ -20,6 +18,7 @@ import {
   Montserrat_400Regular,
 } from "@expo-google-fonts/montserrat";
 import AppLoading from "expo-app-loading";
+import Edit from "./components/EditProfile";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -79,23 +78,25 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen 
-          name="Login" 
-          component={Login}/>
         <Stack.Screen
-          name="Profile" 
-          component={Profile}/>
-        <Stack.Screen 
-          name="NewPassword" 
-          component={NewPassword}/>
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }} />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{ headerShown: false }} />
+        <Stack.Screen
+          name="EditProfile"
+          component={Edit}
+          options={{ headerShown: false }} />
+        <Stack.Screen
+          name="NewPassword"
+          component={NewPassword}
+          options={{ title: "", headerTransparent: true, headerTintColor: "brightblue" }} />
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="BloodPressure"
-          component={BloodPressure}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

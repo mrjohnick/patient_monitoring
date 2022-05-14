@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { Title } from "react-native-paper";
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 
 import Profile from "./Profile";
 import NewPassowrd from "./NewPassword";
@@ -17,9 +18,9 @@ const Login = () => {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-        if (user) {
-            navigation.replace("TabNavigator")
-        }
+            if (user) {
+                navigation.replace("TabNavigator")
+            }
         })
 
         return unsubscribe
@@ -27,24 +28,27 @@ const Login = () => {
 
     const handleLogin = () => {
         signInWithEmailAndPassword(auth, email, password)
-          .then(userCredentials => {
-            const user = userCredentials.user;
-            console.log('Logged in with:', user.email);
-          })
-          .catch(error => alert(error.message))
-      }
-    
-    return(
+            .then(userCredentials => {
+                const user = userCredentials.user;
+                console.log('Logged in with:', user.email);
+            })
+            .catch(error => alert(error.message))
+    }
+
+    return (
         <View
+            behavior='padding'
             style={styles.container}
+            disabled
         >
+            <Title style={styles.header}>Login</Title>
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder='Email'
                     value={email}
                     keyboardType='email-address'
                     onChangeText={text => setEmail(text)}
-                    autoCapitalize= "none"
+                    autoCapitalize="none"
                     style={styles.input}
                 />
                 <TextInput
@@ -54,16 +58,16 @@ const Login = () => {
                     style={styles.input}
                     secureTextEntry
                 />
-                <TouchableOpacity 
-                    onPress={() => {navigation.navigate("NewPassword")}}
+                <TouchableOpacity
+                    onPress={() => { navigation.navigate("NewPassword") }}
                 >
-                    <Text style={{color:'blue', marginTop: 10}}>Forgot password?</Text>
+                    <Text style={{ color: 'royalblue', marginTop: 10 }}>Forgot password?</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.logoContainer}>
                 <Image
-                style={styles.img} 
-                source = {require('../assets/images/PMlogo.png')} 
+                    style={styles.img}
+                    source={require('../assets/images/PMlogo.png')}
                 />
                 <Text style={styles.logo}>®Patient</Text>
                 <Text style={styles.logo}>Monitoring</Text>
@@ -83,18 +87,23 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: 'Montserrat_500Medium',
     },
-    inputContainer:{
+    header: {
+        fontSize: 20,
+        fontWeight: '300',
+        transform: [{ translateY: -60 }],
+    },
+    inputContainer: {
         width: '80%',
         height: '30%',
         bottom: 20,
     },
-    input:{
+    input: {
         paddingHorizontal: 1,
         paddingVertical: 20,
         borderBottomWidth: 1.5,
@@ -102,12 +111,12 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontFamily: 'Montserrat_500Medium',
     },
-    buttonContainer:{
-       top: 30, 
-       borderRadius: 50,
-       width: '80%',
+    buttonContainer: {
+        top: 30,
+        borderRadius: 50,
+        width: '80%',
     },
-    button:{
+    button: {
         color: 'white',
         fontFamily: 'Montserrat_500Medium',
         fontSize: 15,
@@ -117,16 +126,16 @@ const styles = StyleSheet.create({
         padding: 8,
         borderRadius: 25,
     },
-    logoContainer:{
+    logoContainer: {
         alignItems: 'center',
         bottom: 30,
     },
-    img:{
+    img: {
         height: 90,
         width: 90,
         marginBottom: 20,
     },
-    logo:{
+    logo: {
         textAlign: 'center',
         fontSize: 30,
     },
