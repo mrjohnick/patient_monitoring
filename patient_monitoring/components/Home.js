@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -12,16 +12,20 @@ import {
   Modal,
   Dimensions,
   TouchableWithoutFeedback,
+  Switch,
+  Animated,
 } from "react-native";
 import colors from "../assets/colors/colors";
 import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
 import profile from "../assets/images/person.png";
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
 import Dropdown from "../components/Dropdown";
 import { BarChart, LineChart } from "react-native-chart-kit";
-import { LogBox } from 'react-native';
+import { LogBox } from "react-native";
+import { auth } from "../firebase";
+import CustomSwitch from "./CustomSwitch";
 // Firebase imports
 import { db } from "../firebase";
 import {
@@ -33,6 +37,7 @@ import {
   deleteDoc,
   onSnapshot,
 } from "firebase/firestore";
+import "react-native-gesture-handler";
 
 // Global arrays for charts, each value initialized to 0
 const heartGraph = [71, 68, 72, 66, 81, 75, 89, 85, 83, 79];
@@ -46,8 +51,8 @@ const Home = ({ navigation }) => {
   const [heart, setHeart] = useState(61);
   const [breath, setBreath] = useState(13);
   const [oxygen, setOxygen] = useState(97);
-   
- // for open/close modals
+
+  // for open/close modals
   const [hmodalOpen, SetHmodalOpen] = useState(false);
   const [bmodalOpen, SetBmodalOpen] = useState(false);
   const [omodalOpen, SetOmodalOpen] = useState(false);
@@ -72,7 +77,7 @@ const Home = ({ navigation }) => {
       handleHeart();
       handleBreath();
       handleOxygen();
-      LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
+      LogBox.ignoreLogs(["Setting a timer for a long period of time"]); // Removes timer-warning
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
@@ -131,7 +136,7 @@ const Home = ({ navigation }) => {
     a.length = a.length < 10 ? a.length : 10;
   }
 
-// Chart stuff
+  // Chart stuff
 
   // Labels ("m" is appended in the actual chart)
   let labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
@@ -187,268 +192,397 @@ const Home = ({ navigation }) => {
     },
   };
 
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
+  // To get the current status of menu
+  const [showMenu, setShowMenu] = useState(false);
+
+  // Animated properties
+  const offsetValue = useRef(new Animated.Value(0)).current;
+  // Scale initially must be one
+  const scaleValue = useRef(new Animated.Value(1)).current;
+  const closeButtonOffset = useRef(new Animated.Value(0)).current;
+
+  // State of custom room switch
+  const onSelectSwitch = (index) => {
+    alert("Selected index: " + index);
+  };
 
   return (
-    <View>
-      <ScrollView>
-        {/* Header */}
-        <SafeAreaView>
-          <View style={styles.menuWrapper}>
-            <Feather
-              name="menu"
-              size={32}
-              color={colors.black}
-              style={styles.menuIcon}
-            />
-            {!!room && <Text>{room.roomID}</Text>}
-            <Dropdown
-              label="Select room"
-              data={patientData}
-              onSelect={setRoom}
-            />
+    <SafeAreaView style={styles.container}>
+      <View>
+        <View
+          style={{
+            justifyContent: "flex-start",
+            marginTop: 30,
+            marginHorizontal: 20,
+            flexDirection: "row",
 
-            <Image source={profile} style={styles.profileImage} />
-          </View>
-        </SafeAreaView>
-
-        {/* Patient Information */}
-        <View style={styles.patientInformation}>
-          {/* Patient Name */}
-          <Text style={styles.patientNameTitle}>Patient Name</Text>
-          <View style={styles.patientNameWrapper}>
-            <Text style={styles.patientName}>John Johnson</Text>
-          </View>
-          {/* Patient date of admission */}
-          <View style={styles.patientDateWrapper}>
-            <Text style={styles.patientDate}>
-              Date of admission: {patientData[1].dateOfAdmission}
-            </Text>
+            // justifyContent: "space-between",
+            // alignItems: "center",
+          }}
+        >
+          <Image source={profile} style={styles.profileImageDrawer}></Image>
+          <View style={styles.doctorInfo}>
+            <Text style={styles.profileName}>Doctor John</Text>
+            <Text style={styles.profileEmail}>{auth.currentUser?.email}</Text>
           </View>
         </View>
-        {/* Patient measurements */}
-        <View style={styles.patientMonitoring}>
-          <Text style={styles.measurementsTitle}>Measurements</Text>
+        <View style={styles.darkMode}>
+          <Text style={styles.darkModeText}>Dark Mode</Text>
+          <Switch
+            trackColor={{ false: "#767577", true: "#236BFD" }}
+            thumbColor={isEnabled ? "#5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#767577"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+            marginLeft={10}
+          />
+        </View>
+        <TouchableOpacity>
+          <Text style={styles.logOut}>Log Out</Text>
+        </TouchableOpacity>
+      </View>
 
-          {/* All measurements displayed below */}
-          <View style={styles.measurementsItemsWrapper}>
-            {patients.map((patient) => {
-              return (
-                <View>
-                  {patient.room == "1" ? (
+      {
+        // Over lay View
+      }
+
+      <Animated.View
+        style={{
+          flexGrow: 1,
+          backgroundColor: colors.white2,
+          position: "absolute",
+          // Transforming View
+
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+
+          paddingVertical: 20,
+          borderRadius: showMenu ? 15 : 0,
+          // Transforming View...
+          transform: [{ scale: scaleValue }, { translateX: offsetValue }],
+        }}
+      >
+        <Animated.View
+          style={{
+            transform: [
+              {
+                translateY: closeButtonOffset,
+              },
+            ],
+          }}
+        >
+          <View>
+            <View style={styles.menuWrapper}>
+              <TouchableOpacity
+                onPress={() => {
+                  // Do Actions here
+                  // Scaling the view
+                  Animated.timing(scaleValue, {
+                    toValue: showMenu ? 1 : 0.82,
+                    duration: 300,
+                    useNativeDriver: true,
+                  }).start();
+
+                  Animated.timing(offsetValue, {
+                    toValue: showMenu ? 0 : 310,
+                    duration: 300,
+                    useNativeDriver: true,
+                  }).start();
+
+                  Animated.timing(closeButtonOffset, {
+                    toValue: !showMenu ? -30 : 0,
+                    duration: 300,
+                    useNativeDriver: true,
+                  }).start();
+
+                  setShowMenu(!showMenu);
+                }}
+              >
+                <Feather
+                  name="menu"
+                  size={32}
+                  color={colors.black}
+                  style={styles.menuIcon}
+                />
+              </TouchableOpacity>
+              <CustomSwitch
+                selectionMode={1}
+                roundCorner={true}
+                option1={"Room 1"}
+                option2={"Room 2"}
+                onSelectSwitch={onSelectSwitch}
+                selectionColor={colors.blue}
+              />
+              <Image source={profile} style={styles.profileImage} />
+            </View>
+          </View>
+          <ScrollView>
+            {/* Patient Information */}
+            <View style={styles.patientInformation}>
+              {/* Patient Name */}
+              <Text style={styles.patientNameTitle}>Patient Name</Text>
+              <View style={styles.patientNameWrapper}>
+                <Text style={styles.patientName}>John Johnson</Text>
+              </View>
+              {/* Patient date of admission */}
+              <View style={styles.patientDateWrapper}>
+                <Text style={styles.patientDate}>
+                  Date of admission: {patientData[1].dateOfAdmission}
+                </Text>
+              </View>
+            </View>
+            {/* Patient measurements */}
+            <View style={styles.patientMonitoring}>
+              <Text style={styles.measurementsTitle}>Measurements</Text>
+
+              {/* All measurements displayed below */}
+              <View style={styles.measurementsItemsWrapper}>
+                {patients.map((patient) => {
+                  return (
                     <View>
-                      <Modal visible={hmodalOpen} animationType='fade' transparent={true}>
-                        <View style={styles.modalBackround}>                       
-                          <View style={styles.modalContainer}> 
-                            <MaterialIcons 
-                              name='close'
-                              size={40}
-                              style={styles.modalClose}
-                              onPress={() => SetHmodalOpen(false)}
-                            />
-                            <View>
-                                <LineChart
-                                  data={dataHeart}
-                                  width={Dimensions.get("screen").width}
-                                  height={Dimensions.get("screen").height / 3}
-                                  yAxisLabel=""
-                                  yAxisSuffix=""
-                                  xAxisLabel="m"
-                                  yAxisInterval={1} // optional, defaults to 1
-                                  chartConfig={chartConfig}
-                                  fromNumber={180} // max value
-                                  fromZero={true} // min value
-                                  withDots={false} // removes dots
-                                  withInnerLines={false} // removes the grid on the chart
-                                  withShadow={false} // removes the shadow under the line, default true
-                                  bezier
-                                  style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-                                  }}
-                                /> 
-                            </View>
-                          </View>
-                        </View>
-                      </Modal>
-                      <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
-                        <View style={styles.measurementsItem}>
-                         <View style={styles.measurementheader}>
-                          <View style={styles.rowcontainer}>                                                                    
-                             <View style={styles.allmeasurementsContainer}>
-                              <Text style={styles.measurementsTitles}>
-                              Heart Rate (BPM)</Text>
-                             <Text style={styles.liveMeasurementTitle}>
-                              {patient.Heart}</Text>
-                              <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
-                            </View>
-                            <Image
-                              style={styles.img} 
-                              source = {require('../assets/images/heart_rate.png')} 
-                              />                         
-                          </View>
-                            <Ionicicon
-                              name={"chevron-forward-outline"}
-                              style={styles.arrowIcon}
-                              size={24}
-                            />
-                         </View>                     
-                            <View style={styles.liveMeasurement}>
-                            <Modal visible={omodalOpen} animationType='fade' transparent={true}>
-                              <View style={styles.modalBackround}>
-                                <View style={styles.modalContainer}> 
-                                  <MaterialIcons 
-                                    name='close'
-                                    size={40}
-                                    style={styles.modalClose}
-                                    onPress={() => SetOmodalOpen(false)}
-                                  />
-                                <View>
-                                <LineChart
-                                  data={dataOxygen}
-                                  width={Dimensions.get("screen").width}
-                                  height={Dimensions.get("screen").height / 3}
-                                  yAxisLabel=""
-                                  yAxisSuffix=""
-                                  xAxisLabel="m"
-                                  yAxisInterval={1} // optional, defaults to 1
-                                  chartConfig={chartConfig}
-                                  fromNumber={100} // max value
-                                  fromZero={true} // min value
-                                  withDots={false} // removes dots
-                                  withInnerLines={false} // removes the grid on the chart
-                                  withShadow={false} // removes the shadow under the line, default true
-                                  bezier
-                                  style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-                                  }}
-                                />
-                                </View>
-                          </View>
-                        </View>
-                        </Modal> 
-                                                                                          
-                            
-                        </View>
-                        </View> 
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
-                        <View style={styles.measurementsItem}>
-                          <View style={styles.measurementheader}>
-                          <View style={styles.rowcontainer}>                                                                    
-                             <View style={styles.allmeasurementsContainer}>
-                              <Text style={styles.measurementsTitles}>
-                              Blood Oxygen (SPO2)</Text>
-                             <Text style={styles.liveMeasurementTitle}>
-                              {patient.Oxygen}</Text>
-                              <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
-                            </View>
-                            <Image
-                              style={styles.img2} 
-                              source = {require('../assets/images/o2.png')} 
-                              />                   
-                                </View>
-                              <Ionicicon
-                              name={"chevron-forward-outline"}
-                              style={styles.arrowIcon}
-                              size={24}
-                            />  
-                          </View>
-
-                          <View style={styles.liveMeasurement}>
-
-                          <Modal visible={bmodalOpen} animationType='fade' transparent={true}>
+                      {patient.room == "1" ? (
+                        <View>
+                          <Modal
+                            visible={hmodalOpen}
+                            animationType="fade"
+                            transparent={true}
+                          >
                             <View style={styles.modalBackround}>
-                              <View style={styles.modalContainer}> 
-                                <MaterialIcons 
-                                  name='close'
+                              <View style={styles.modalContainer}>
+                                <MaterialIcons
+                                  name="close"
                                   size={40}
                                   style={styles.modalClose}
-                                  onPress={() => SetBmodalOpen(false)}
+                                  onPress={() => SetHmodalOpen(false)}
                                 />
-                                  <View>
-                                    <LineChart
-                                      data={dataBreath}
-                                      width={Dimensions.get("screen").width}
-                                      height={Dimensions.get("screen").height / 3}
-                                      yAxisLabel=""
-                                      yAxisSuffix=""
-                                      xAxisLabel="m"
-                                      yAxisInterval={1} // optional, defaults to 1
-                                      chartConfig={chartConfig}
-                                      fromNumber={50} // max value
-                                      fromZero={true} // min value
-                                      withDots={false} // removes dots
-                                      withInnerLines={false} // removes the grid on the chart
-                                      withShadow={false} // removes the shadow under the line, default true
-                                      bezier
-                                      style={{
-                                        marginVertical: 8,
-                                        borderRadius: 16,
-                                      }}
-                                    />
-                                  </View>
+                                <View>
+                                  <LineChart
+                                    data={dataHeart}
+                                    width={Dimensions.get("screen").width}
+                                    height={Dimensions.get("screen").height / 3}
+                                    yAxisLabel=""
+                                    yAxisSuffix=""
+                                    xAxisLabel="m"
+                                    yAxisInterval={1} // optional, defaults to 1
+                                    chartConfig={chartConfig}
+                                    fromNumber={180} // max value
+                                    fromZero={true} // min value
+                                    withDots={false} // removes dots
+                                    withInnerLines={false} // removes the grid on the chart
+                                    withShadow={false} // removes the shadow under the line, default true
+                                    bezier
+                                    style={{
+                                      marginVertical: 8,
+                                      borderRadius: 16,
+                                    }}
+                                  />
+                                </View>
                               </View>
                             </View>
                           </Modal>
-
-                           
-                          </View>
-                          
-                        </View>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
-                        <View style={styles.measurementsItem}>
-                          <View style={styles.measurementheader}>
-                           <View style={styles.rowcontainer}>                                                                    
-                              <View style={styles.allmeasurementsContainer}>
-                                <Text style={styles.measurementsTitles}>
-                                Breath Rate</Text>
-                                <Text style={styles.liveMeasurementTitle}>
-                                {patient.Breath}</Text>
-                                <Text style={styles.breathsPerMinuteTitle}>
-                                breaths/min
-                                </Text>
-                                <Text style={styles.lastUpdatedTitle}>1 min ago</Text>
-
+                          <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
+                            <View style={styles.measurementsItem}>
+                              <View style={styles.measurementheader}>
+                                <View style={styles.rowcontainer}>
+                                  <View style={styles.allmeasurementsContainer}>
+                                    <Text style={styles.measurementsTitles}>
+                                      Heart Rate (BPM)
+                                    </Text>
+                                    <Text style={styles.liveMeasurementTitle}>
+                                      {patient.Heart}
+                                    </Text>
+                                    <Text style={styles.lastUpdatedTitle}>
+                                      1 min ago
+                                    </Text>
+                                  </View>
+                                  <Image
+                                    style={styles.img}
+                                    source={require("../assets/images/heart_rate.png")}
+                                  />
+                                </View>
+                                <Ionicicon
+                                  name={"chevron-forward-outline"}
+                                  style={styles.arrowIcon}
+                                  size={24}
+                                />
                               </View>
-                            <Image
-                              style={styles.img3} 
-                              source = {require('../assets/images/lung.png')} 
-                              />                   
-                                </View> 
-                            
-                            <Ionicicon
-                              name={"chevron-forward-outline"}
-                              style={styles.arrowIcon}
-                              size={24}
-                            />
-                          </View>
-  
+                              <View style={styles.liveMeasurement}>
+                                <Modal
+                                  visible={omodalOpen}
+                                  animationType="fade"
+                                  transparent={true}
+                                >
+                                  <View style={styles.modalBackround}>
+                                    <View style={styles.modalContainer}>
+                                      <MaterialIcons
+                                        name="close"
+                                        size={40}
+                                        style={styles.modalClose}
+                                        onPress={() => SetOmodalOpen(false)}
+                                      />
+                                      <View>
+                                        <LineChart
+                                          data={dataOxygen}
+                                          width={Dimensions.get("screen").width}
+                                          height={
+                                            Dimensions.get("screen").height / 3
+                                          }
+                                          yAxisLabel=""
+                                          yAxisSuffix=""
+                                          xAxisLabel="m"
+                                          yAxisInterval={1} // optional, defaults to 1
+                                          chartConfig={chartConfig}
+                                          fromNumber={100} // max value
+                                          fromZero={true} // min value
+                                          withDots={false} // removes dots
+                                          withInnerLines={false} // removes the grid on the chart
+                                          withShadow={false} // removes the shadow under the line, default true
+                                          bezier
+                                          style={{
+                                            marginVertical: 8,
+                                            borderRadius: 16,
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                  </View>
+                                </Modal>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
+                            <View style={styles.measurementsItem}>
+                              <View style={styles.measurementheader}>
+                                <View style={styles.rowcontainer}>
+                                  <View style={styles.allmeasurementsContainer}>
+                                    <Text style={styles.measurementsTitles}>
+                                      Blood Oxygen (SPO2)
+                                    </Text>
+                                    <Text style={styles.liveMeasurementTitle}>
+                                      {patient.Oxygen}
+                                    </Text>
+                                    <Text style={styles.lastUpdatedTitle}>
+                                      1 min ago
+                                    </Text>
+                                  </View>
+                                  <Image
+                                    style={styles.img2}
+                                    source={require("../assets/images/o2.png")}
+                                  />
+                                </View>
+                                <Ionicicon
+                                  name={"chevron-forward-outline"}
+                                  style={styles.arrowIcon}
+                                  size={24}
+                                />
+                              </View>
+
+                              <View style={styles.liveMeasurement}>
+                                <Modal
+                                  visible={bmodalOpen}
+                                  animationType="fade"
+                                  transparent={true}
+                                >
+                                  <View style={styles.modalBackround}>
+                                    <View style={styles.modalContainer}>
+                                      <MaterialIcons
+                                        name="close"
+                                        size={40}
+                                        style={styles.modalClose}
+                                        onPress={() => SetBmodalOpen(false)}
+                                      />
+                                      <View>
+                                        <LineChart
+                                          data={dataBreath}
+                                          width={Dimensions.get("screen").width}
+                                          height={
+                                            Dimensions.get("screen").height / 3
+                                          }
+                                          yAxisLabel=""
+                                          yAxisSuffix=""
+                                          xAxisLabel="m"
+                                          yAxisInterval={1} // optional, defaults to 1
+                                          chartConfig={chartConfig}
+                                          fromNumber={50} // max value
+                                          fromZero={true} // min value
+                                          withDots={false} // removes dots
+                                          withInnerLines={false} // removes the grid on the chart
+                                          withShadow={false} // removes the shadow under the line, default true
+                                          bezier
+                                          style={{
+                                            marginVertical: 8,
+                                            borderRadius: 16,
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
+                                  </View>
+                                </Modal>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
+                          <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
+                            <View style={styles.measurementsItem}>
+                              <View style={styles.measurementheader}>
+                                <View style={styles.rowcontainer}>
+                                  <View style={styles.allmeasurementsContainer}>
+                                    <Text style={styles.measurementsTitles}>
+                                      Breath Rate
+                                    </Text>
+                                    <Text style={styles.liveMeasurementTitle}>
+                                      {patient.Breath}
+                                    </Text>
+                                    <Text style={styles.breathsPerMinuteTitle}>
+                                      breaths/min
+                                    </Text>
+                                    <Text style={styles.lastUpdatedTitle}>
+                                      1 min ago
+                                    </Text>
+                                  </View>
+                                  <Image
+                                    style={styles.img3}
+                                    source={require("../assets/images/lung.png")}
+                                  />
+                                </View>
+
+                                <Ionicicon
+                                  name={"chevron-forward-outline"}
+                                  style={styles.arrowIcon}
+                                  size={24}
+                                />
+                              </View>
+                            </View>
+                          </TouchableOpacity>
                         </View>
-                      </TouchableOpacity>
+                      ) : null}
                     </View>
-                  ) : null}
-                </View>
-              );
-            })}
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+                  );
+                })}
+              </View>
+            </View>
+          </ScrollView>
+        </Animated.View>
+      </Animated.View>
+
+      {/* Header */}
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    color: colors.white,
+    backgroundColor: colors.white1,
   },
 
   menuWrapper: {
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 40,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -464,6 +598,46 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     borderRadius: 100,
   },
+  doctorInfo: { marginTop: 20, marginLeft: 5 },
+  profileImageDrawer: {
+    width: 80,
+    height: 80,
+    borderRadius: 100,
+    marginTop: 8,
+  },
+  profileEmail: {
+    marginTop: 10,
+    marginLeft: 20,
+    fontSize: 12,
+    fontFamily: "Montserrat_400Regular",
+    color: colors.grey2,
+  },
+  profileName: {
+    marginTop: 15,
+    marginLeft: 20,
+    fontSize: 20,
+    color: colors.grey1,
+    fontFamily: "Montserrat_500Medium",
+  },
+
+  darkMode: {
+    marginTop: 43,
+    marginLeft: 27,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  darkModeText: {
+    fontFamily: "Montserrat_400Regular",
+    fontSize: 20,
+  },
+  logOut: {
+    marginTop: 30,
+    marginLeft: 27,
+    fontFamily: "Montserrat_400Regular",
+    fontSize: 20,
+  },
+
   patientInformation: {
     marginHorizontal: 20,
     marginTop: 20,
@@ -545,63 +719,62 @@ const styles = StyleSheet.create({
     marginRight: 14,
     marginTop: 14,
   },
-  modalBackround:{
-    flex:1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.3)',
+  modalBackround: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.3)",
   },
-  modalContainer:{
-    height: '50%',
-    marginTop: 'auto',
-    backgroundColor:'white',
+  modalContainer: {
+    height: "50%",
+    marginTop: "auto",
+    backgroundColor: "white",
   },
   modalClose: {
     marginTop: 0,
-    borderColor: '#f2f2f2',
-    padding: 10, 
+    borderColor: "#f2f2f2",
+    padding: 10,
     borderRadius: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
-  iconContainer:{
-    flexDirection:'row',
-    justifyContent: 'space-between',
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     flex: 1,
   },
-  img:{
+  img: {
     height: 100,
-    flexDirection:'row',
+    flexDirection: "row",
     width: 100,
     marginBottom: 20,
     marginLeft: 40,
-    marginTop: 30, 
+    marginTop: 30,
   },
-  img2:{
+  img2: {
     height: 80,
-    flexDirection:'row',
+    flexDirection: "row",
     width: 80,
     marginBottom: 20,
     marginLeft: 27,
     marginTop: 30,
     marginRight: 20,
   },
-  img3:{
+  img3: {
     height: 80,
-    flexDirection:'row',
+    flexDirection: "row",
     width: 80,
     marginBottom: 20,
     marginLeft: 85,
     marginTop: 30,
   },
-  rowcontainer:{
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  rowcontainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     flexWrap: "wrap",
-  }, 
-  allmeasurementsContainer:{
-   marginLeft:14,
   },
-
+  allmeasurementsContainer: {
+    marginLeft: 14,
+  },
 });
 
 export default Home;
