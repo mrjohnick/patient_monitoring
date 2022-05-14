@@ -78,24 +78,6 @@ const Home = ({ navigation }) => {
       handleBreath();
       handleOxygen();
       LogBox.ignoreLogs(["Setting a timer for a long period of time"]); // Removes timer-warning
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-      
-      LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
-
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-<<<<<<< HEAD
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
@@ -212,51 +194,16 @@ const Home = ({ navigation }) => {
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   // To get the current status of menu
   const [showMenu, setShowMenu] = useState(false);
 
-=======
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-
-  // To get the current status of menu
-  const [showMenu, setShowMenu] = useState(false);
-
-<<<<<<< HEAD
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
-
-  // To get the current status of menu
-  const [showMenu, setShowMenu] = useState(false);
-
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
   // Animated properties
   const offsetValue = useRef(new Animated.Value(0)).current;
   // Scale initially must be one
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
 
-=======
-
-  // To get the current status of menu
-  const [showMenu, setShowMenu] = useState(false);
-
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-  // Animated properties
-  const offsetValue = useRef(new Animated.Value(0)).current;
-  // Scale initially must be one
-  const scaleValue = useRef(new Animated.Value(1)).current;
-  const closeButtonOffset = useRef(new Animated.Value(0)).current;
-
-<<<<<<< HEAD
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
   // State of custom room switch
   const onSelectSwitch = (index) => {
     alert("Selected index: " + index);
@@ -398,22 +345,6 @@ const Home = ({ navigation }) => {
                 {patients.map((patient) => {
                   return (
                     <View>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
-
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                       {patient.room == "1" ? (
                         <View>
                           <Modal
@@ -428,107 +359,6 @@ const Home = ({ navigation }) => {
                                   size={40}
                                   style={styles.modalClose}
                                   onPress={() => SetHmodalOpen(false)}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                      <Modal visible={hmodalOpen} animationType='fade' transparent={true}>
-                        <View style={styles.modalBackround}>                       
-                          <View style={styles.modalContainer}> 
-                            <MaterialIcons 
-                              name='close'
-                              size={40}
-                              style={styles.modalClose}
-                              onPress={() => SetHmodalOpen(false)}
-                            />
-                            <View>
-                                <LineChart
-                                  data={dataHeart}
-                                  width={Dimensions.get("screen").width}
-                                  height={Dimensions.get("screen").height / 3}
-                                  yAxisLabel=""
-                                  yAxisSuffix=""
-                                  xAxisLabel="m"
-                                  yAxisInterval={1} // optional, defaults to 1
-                                  chartConfig={chartConfig}
-                                  fromNumber={180} // max value
-                                  fromZero={true} // min value
-                                  withDots={false} // removes dots
-                                  withInnerLines={false} // removes the grid on the chart
-                                  withShadow={false} // removes the shadow under the line, default true
-                                  bezier
-                                  style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-                                  }}
-                                /> 
-                            </View>
-                          </View>
-                        </View>
-                      </Modal>
-                      <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
-                        <View style={styles.measurementsItem}>
-                         <View style={styles.measurementheader}>
-                          <View style={styles.rowcontainer}>                                                                    
-                             <View style={styles.allmeasurementsContainer}>
-                              <Text style={styles.measurementsTitles}>
-                              Heart Rate (BPM)</Text>
-                             <Text style={styles.liveMeasurementTitle}>
-                              {patient.Heart}</Text>
-                              <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
-                            </View>
-                            <Image
-                              style={styles.img} 
-                              source = {require('../assets/images/heart_rate.png')} 
-                              />                         
-                          </View>
-                            <Ionicicon
-                              name={"chevron-forward-outline"}
-                              style={styles.arrowIcon}
-                              size={24}
-                            />
-                         </View>                     
-                            <View style={styles.liveMeasurement}>
-                            <Modal visible={omodalOpen} animationType='fade' transparent={true}>
-                              <View style={styles.modalBackround}>
-                                <View style={styles.modalContainer}> 
-                                  <MaterialIcons 
-                                    name='close'
-                                    size={40}
-                                    style={styles.modalClose}
-                                    onPress={() => SetOmodalOpen(false)}
-                                  />
-                                <View>
-                                <LineChart
-                                  data={dataOxygen}
-                                  width={Dimensions.get("screen").width}
-                                  height={Dimensions.get("screen").height / 3}
-                                  yAxisLabel=""
-                                  yAxisSuffix=""
-                                  xAxisLabel="m"
-                                  yAxisInterval={1} // optional, defaults to 1
-                                  chartConfig={chartConfig}
-                                  fromNumber={100} // max value
-                                  fromZero={true} // min value
-                                  withDots={false} // removes dots
-                                  withInnerLines={false} // removes the grid on the chart
-                                  withShadow={false} // removes the shadow under the line, default true
-                                  bezier
-                                  style={{
-                                    marginVertical: 8,
-                                    borderRadius: 16,
-                                  }}
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-<<<<<<< HEAD
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                 />
                                 <View>
                                   <LineChart
@@ -552,46 +382,7 @@ const Home = ({ navigation }) => {
                                     }}
                                   />
                                 </View>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-
                               </View>
-
-                          </View>
-                        </View>
-                        </Modal> 
-                                                                                          
-                            
-                        </View>
-                        </View> 
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
-                        <View style={styles.measurementsItem}>
-                          <View style={styles.measurementheader}>
-                          <View style={styles.rowcontainer}>                                                                    
-                             <View style={styles.allmeasurementsContainer}>
-                              <Text style={styles.measurementsTitles}>
-                              Blood Oxygen (SPO2)</Text>
-                             <Text style={styles.liveMeasurementTitle}>
-                              {patient.Oxygen}</Text>
-                              <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
-
-=======
-                              </View>
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-<<<<<<< HEAD
-=======
-                              </View>
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
-                              </View>
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                             </View>
                           </Modal>
                           <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
@@ -618,11 +409,6 @@ const Home = ({ navigation }) => {
                                   name={"chevron-forward-outline"}
                                   style={styles.arrowIcon}
                                   size={24}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                 />
                               </View>
                               <View style={styles.liveMeasurement}>
@@ -664,7 +450,6 @@ const Home = ({ navigation }) => {
                                         />
                                       </View>
                                     </View>
-<<<<<<< HEAD
                                   </View>
                                 </Modal>
                               </View>
@@ -697,351 +482,6 @@ const Home = ({ navigation }) => {
                                 />
                               </View>
 
-
-                              <View style={styles.liveMeasurement}>
-                                <Modal
-                                  visible={bmodalOpen}
-                                  animationType="fade"
-                                  transparent={true}
-                                >
-                                  <View style={styles.modalBackround}>
-                                    <View style={styles.modalContainer}>
-                                      <MaterialIcons
-                                        name="close"
-                                        size={40}
-                                        style={styles.modalClose}
-                                        onPress={() => SetBmodalOpen(false)}
-                                      />
-                                      <View>
-                                        <LineChart
-                                          data={dataBreath}
-                                          width={Dimensions.get("screen").width}
-                                          height={
-                                            Dimensions.get("screen").height / 3
-                                          }
-                                          yAxisLabel=""
-                                          yAxisSuffix=""
-                                          xAxisLabel="m"
-                                          yAxisInterval={1} // optional, defaults to 1
-                                          chartConfig={chartConfig}
-                                          fromNumber={50} // max value
-                                          fromZero={true} // min value
-                                          withDots={false} // removes dots
-                                          withInnerLines={false} // removes the grid on the chart
-                                          withShadow={false} // removes the shadow under the line, default true
-                                          bezier
-                                          style={{
-                                            marginVertical: 8,
-                                            borderRadius: 16,
-                                          }}
-                                        />
-                                      </View>
-                                    </View>
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-<<<<<<< HEAD
-                                  </View>
-                                </Modal>
-                              </View>
-                            </View>
-                          </TouchableOpacity>
-<<<<<<< HEAD
-                          <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
-=======
-                          <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                            <View style={styles.measurementsItem}>
-                              <View style={styles.measurementheader}>
-                                <View style={styles.rowcontainer}>
-                                  <View style={styles.allmeasurementsContainer}>
-                                    <Text style={styles.measurementsTitles}>
-<<<<<<< HEAD
-                                      Breath Rate
-                                    </Text>
-                                    <Text style={styles.liveMeasurementTitle}>
-                                      {patient.Breath}
-                                    </Text>
-                                    <Text style={styles.breathsPerMinuteTitle}>
-                                      breaths/min
-=======
-                                      Blood Oxygen (SPO2)
-                                    </Text>
-                                    <Text style={styles.liveMeasurementTitle}>
-                                      {patient.Oxygen}
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                                    </Text>
-                                    <Text style={styles.lastUpdatedTitle}>
-                                      1 min ago
-                                    </Text>
-                                  </View>
-                                  <Image
-<<<<<<< HEAD
-                                    style={styles.img3}
-                                    source={require("../assets/images/lung.png")}
-                                  />
-                                </View>
-=======
-                                    style={styles.img2}
-                                    source={require("../assets/images/o2.png")}
-                                  />
-                                </View>
-                                <Ionicicon
-                                  name={"chevron-forward-outline"}
-                                  style={styles.arrowIcon}
-                                  size={24}
-                                />
-                              </View>
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-
-                              <View style={styles.liveMeasurement}>
-                                <Modal
-                                  visible={bmodalOpen}
-=======
-                                />
-                              </View>
-                              <View style={styles.liveMeasurement}>
-                                <Modal
-                                  visible={omodalOpen}
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
-                                />
-                              </View>
-                              <View style={styles.liveMeasurement}>
-                                <Modal
-                                  visible={omodalOpen}
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                                  animationType="fade"
-                                  transparent={true}
-                                >
-                                  <View style={styles.modalBackround}>
-                                    <View style={styles.modalContainer}>
-                                      <MaterialIcons
-                                        name="close"
-                                        size={40}
-                                        style={styles.modalClose}
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                        onPress={() => SetBmodalOpen(false)}
-                                      />
-                                      <View>
-                                        <LineChart
-                                          data={dataBreath}
-=======
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                                        onPress={() => SetOmodalOpen(false)}
-                                      />
-                                      <View>
-                                        <LineChart
-                                          data={dataOxygen}
-<<<<<<< HEAD
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                                          width={Dimensions.get("screen").width}
-                                          height={
-                                            Dimensions.get("screen").height / 3
-                                          }
-                                          yAxisLabel=""
-                                          yAxisSuffix=""
-                                          xAxisLabel="m"
-                                          yAxisInterval={1} // optional, defaults to 1
-                                          chartConfig={chartConfig}
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                          fromNumber={50} // max value
-=======
-                                          fromNumber={100} // max value
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
-                                          fromNumber={100} // max value
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                                          fromZero={true} // min value
-                                          withDots={false} // removes dots
-                                          withInnerLines={false} // removes the grid on the chart
-                                          withShadow={false} // removes the shadow under the line, default true
-                                          bezier
-                                          style={{
-                                            marginVertical: 8,
-                                            borderRadius: 16,
-                                          }}
-                                        />
-                                      </View>
-                                    </View>
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                                  </View>
-                                </Modal>
-                              </View>
-                            </View>
-                          </TouchableOpacity>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                          <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
-=======
-                          <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-<<<<<<< HEAD
-=======
-                          <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                            <View style={styles.measurementsItem}>
-                              <View style={styles.measurementheader}>
-                                <View style={styles.rowcontainer}>
-                                  <View style={styles.allmeasurementsContainer}>
-                                    <Text style={styles.measurementsTitles}>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                                      Breath Rate
-                                    </Text>
-                                    <Text style={styles.liveMeasurementTitle}>
-                                      {patient.Breath}
-                                    </Text>
-                                    <Text style={styles.breathsPerMinuteTitle}>
-                                      breaths/min
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                                      Blood Oxygen (SPO2)
-                                    </Text>
-                                    <Text style={styles.liveMeasurementTitle}>
-                                      {patient.Oxygen}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                                    </Text>
-                                    <Text style={styles.lastUpdatedTitle}>
-                                      1 min ago
-                                    </Text>
-                                  </View>
-                                  <Image
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                                    style={styles.img3}
-                                    source={require("../assets/images/lung.png")}
-                                  />
-                                </View>
-
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
-                                    style={styles.img2}
-                                    source={require("../assets/images/o2.png")}
-                                  />
-                                </View>
-=======
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
-                                    style={styles.img2}
-                                    source={require("../assets/images/o2.png")}
-                                  />
-                                </View>
-                                <Ionicicon
-                                  name={"chevron-forward-outline"}
-                                  style={styles.arrowIcon}
-                                  size={24}
-                                />
-                              </View>
-
-                              <View style={styles.liveMeasurement}>
-                                <Modal
-                                  visible={bmodalOpen}
-                                  animationType="fade"
-                                  transparent={true}
-                                >
-                                  <View style={styles.modalBackround}>
-                                    <View style={styles.modalContainer}>
-                                      <MaterialIcons
-                                        name="close"
-                                        size={40}
-                                        style={styles.modalClose}
-                                        onPress={() => SetBmodalOpen(false)}
-                                      />
-                                      <View>
-                                        <LineChart
-                                          data={dataBreath}
-                                          width={Dimensions.get("screen").width}
-                                          height={
-                                            Dimensions.get("screen").height / 3
-                                          }
-                                          yAxisLabel=""
-                                          yAxisSuffix=""
-                                          xAxisLabel="m"
-                                          yAxisInterval={1} // optional, defaults to 1
-                                          chartConfig={chartConfig}
-                                          fromNumber={50} // max value
-                                          fromZero={true} // min value
-                                          withDots={false} // removes dots
-                                          withInnerLines={false} // removes the grid on the chart
-                                          withShadow={false} // removes the shadow under the line, default true
-                                          bezier
-                                          style={{
-                                            marginVertical: 8,
-                                            borderRadius: 16,
-                                          }}
-                                        />
-                                      </View>
-                                    </View>
-                                  </View>
-                                </Modal>
-                              </View>
-                            </View>
-                          </TouchableOpacity>
-                          <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
-                            <View style={styles.measurementsItem}>
-                              <View style={styles.measurementheader}>
-                                <View style={styles.rowcontainer}>
-                                  <View style={styles.allmeasurementsContainer}>
-                                    <Text style={styles.measurementsTitles}>
-                                      Breath Rate
-                                    </Text>
-                                    <Text style={styles.liveMeasurementTitle}>
-                                      {patient.Breath}
-                                    </Text>
-                                    <Text style={styles.breathsPerMinuteTitle}>
-                                      breaths/min
-                                    </Text>
-                                    <Text style={styles.lastUpdatedTitle}>
-                                      1 min ago
-                                    </Text>
-                                  </View>
-                                  <Image
-                                    style={styles.img3}
-                                    source={require("../assets/images/lung.png")}
-                                  />
-                                </View>
-<<<<<<< HEAD
-
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-                                <Ionicicon
-                                  name={"chevron-forward-outline"}
-                                  style={styles.arrowIcon}
-                                  size={24}
-                                />
-                              </View>
-<<<<<<< HEAD
-
                               <View style={styles.liveMeasurement}>
                                 <Modal
                                   visible={bmodalOpen}
@@ -1110,22 +550,12 @@ const Home = ({ navigation }) => {
                                   />
                                 </View>
 
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                 <Ionicicon
                                   name={"chevron-forward-outline"}
                                   style={styles.arrowIcon}
                                   size={24}
                                 />
                               </View>
-<<<<<<< HEAD
-=======
->>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
-=======
->>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                             </View>
                           </TouchableOpacity>
                         </View>
