@@ -1,9 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
-
+import colors from "../assets/colors/colors";
 const Export = () => {
   return (
-    <View>
+    <View
+      style={{ justifyContent: "flex-start", backgroundColor: colors.white2 }}
+    >
       <Text>Export</Text>
     </View>
   );
