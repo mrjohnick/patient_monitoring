@@ -56,25 +56,10 @@ const Home = ({ navigation }) => {
   const [hmodalOpen, SetHmodalOpen] = useState(false);
   const [bmodalOpen, SetBmodalOpen] = useState(false);
   const [omodalOpen, SetOmodalOpen] = useState(false);
-  // useState for counter
-  const [counter, setCounter] = useState(0);
 
   // firebase ref
   const [patients, setPatients] = useState([]);
   const patientsCollectionRef = collection(db, "patients");
-
-// useEffect so counter counts up 1, for each second
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCounter((counter) => counter + 1);
-  }, 1000);
-
-  return () => {
-    clearInterval(interval);
-   };
-  }, []);
-
-
 
   // Number gen, dont need to to touch
   function randomNumberInRange(min, max) {
@@ -93,9 +78,12 @@ useEffect(() => {
       handleBreath();
       handleOxygen();
       LogBox.ignoreLogs(["Setting a timer for a long period of time"]); // Removes timer-warning
+<<<<<<< HEAD
       
       LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
 
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
@@ -120,7 +108,6 @@ useEffect(() => {
   const room1Handler = async (heart, breath, oxygen) => {
     const patientsDoc = doc(db, "patients", "room1");
     const newFields = { Heart: heart, Breath: breath, Oxygen: oxygen };
-    setCounter(0);
     await updateDoc(patientsDoc, newFields);
   };
 
@@ -364,7 +351,10 @@ useEffect(() => {
                 {patients.map((patient) => {
                   return (
                     <View>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
                       {patient.room == "1" ? (
                         <View>
                           <Modal
@@ -379,6 +369,7 @@ useEffect(() => {
                                   size={40}
                                   style={styles.modalClose}
                                   onPress={() => SetHmodalOpen(false)}
+<<<<<<< HEAD
                       <Modal visible={hmodalOpen} animationType='fade' transparent={true}>
                         <View style={styles.modalBackround}>                       
                           <View style={styles.modalContainer}> 
@@ -465,6 +456,8 @@ useEffect(() => {
                                     marginVertical: 8,
                                     borderRadius: 16,
                                   }}
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
                                 />
                                 <View>
                                   <LineChart
@@ -488,6 +481,7 @@ useEffect(() => {
                                     }}
                                   />
                                 </View>
+<<<<<<< HEAD
 
                               </View>
 
@@ -510,6 +504,9 @@ useEffect(() => {
                               {patient.Oxygen}</Text>
                               <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
 
+=======
+                              </View>
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
                             </View>
                           </Modal>
                           <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
@@ -577,6 +574,7 @@ useEffect(() => {
                                         />
                                       </View>
                                     </View>
+<<<<<<< HEAD
                                   </View>
                                 </Modal>
                               </View>
@@ -649,6 +647,100 @@ useEffect(() => {
                                         />
                                       </View>
                                     </View>
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+                                  </View>
+                                </Modal>
+                              </View>
+                            </View>
+                          </TouchableOpacity>
+<<<<<<< HEAD
+                          <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
+=======
+                          <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+                            <View style={styles.measurementsItem}>
+                              <View style={styles.measurementheader}>
+                                <View style={styles.rowcontainer}>
+                                  <View style={styles.allmeasurementsContainer}>
+                                    <Text style={styles.measurementsTitles}>
+<<<<<<< HEAD
+                                      Breath Rate
+                                    </Text>
+                                    <Text style={styles.liveMeasurementTitle}>
+                                      {patient.Breath}
+                                    </Text>
+                                    <Text style={styles.breathsPerMinuteTitle}>
+                                      breaths/min
+=======
+                                      Blood Oxygen (SPO2)
+                                    </Text>
+                                    <Text style={styles.liveMeasurementTitle}>
+                                      {patient.Oxygen}
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+                                    </Text>
+                                    <Text style={styles.lastUpdatedTitle}>
+                                      1 min ago
+                                    </Text>
+                                  </View>
+                                  <Image
+<<<<<<< HEAD
+                                    style={styles.img3}
+                                    source={require("../assets/images/lung.png")}
+                                  />
+                                </View>
+=======
+                                    style={styles.img2}
+                                    source={require("../assets/images/o2.png")}
+                                  />
+                                </View>
+                                <Ionicicon
+                                  name={"chevron-forward-outline"}
+                                  style={styles.arrowIcon}
+                                  size={24}
+                                />
+                              </View>
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+
+                              <View style={styles.liveMeasurement}>
+                                <Modal
+                                  visible={bmodalOpen}
+                                  animationType="fade"
+                                  transparent={true}
+                                >
+                                  <View style={styles.modalBackround}>
+                                    <View style={styles.modalContainer}>
+                                      <MaterialIcons
+                                        name="close"
+                                        size={40}
+                                        style={styles.modalClose}
+                                        onPress={() => SetBmodalOpen(false)}
+                                      />
+                                      <View>
+                                        <LineChart
+                                          data={dataBreath}
+                                          width={Dimensions.get("screen").width}
+                                          height={
+                                            Dimensions.get("screen").height / 3
+                                          }
+                                          yAxisLabel=""
+                                          yAxisSuffix=""
+                                          xAxisLabel="m"
+                                          yAxisInterval={1} // optional, defaults to 1
+                                          chartConfig={chartConfig}
+                                          fromNumber={50} // max value
+                                          fromZero={true} // min value
+                                          withDots={false} // removes dots
+                                          withInnerLines={false} // removes the grid on the chart
+                                          withShadow={false} // removes the shadow under the line, default true
+                                          bezier
+                                          style={{
+                                            marginVertical: 8,
+                                            borderRadius: 16,
+                                          }}
+                                        />
+                                      </View>
+                                    </View>
                                   </View>
                                 </Modal>
                               </View>
@@ -678,26 +770,10 @@ useEffect(() => {
                                   />
                                 </View>
 
-                           
-                          </View>
-                          
-                        </View>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
-                        <View style={styles.measurementsItem}>
-                          <View style={styles.measurementheader}>
-                           <View style={styles.rowcontainer}>                                                                    
-                              <View style={styles.allmeasurementsContainer}>
-                                <Text style={styles.measurementsTitles}>
-                                Breath Rate</Text>
-                                <Text style={styles.liveMeasurementTitle}>
-                                {patient.Breath}</Text>
-                                <Text style={styles.breathsPerMinuteTitle}>
-                                breaths/min
-                                </Text>
-                                <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
+<<<<<<< HEAD
 
-
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
                                 <Ionicicon
                                   name={"chevron-forward-outline"}
                                   style={styles.arrowIcon}
