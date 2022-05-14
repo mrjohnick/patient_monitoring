@@ -79,6 +79,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Stack.Screen
           name="Login"
           component={Login}
@@ -95,6 +96,10 @@ const App = () => {
           name="NewPassword"
           component={NewPassword}
           options={{ title: "", headerTransparent: true, headerTintColor: "brightblue" }} />
+=======
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Profile" component={Profile} />
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Profile" component={Profile} />
@@ -191,4 +196,7 @@ export default tabNavigator (
   )
 )
 */
+<<<<<<< HEAD
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
