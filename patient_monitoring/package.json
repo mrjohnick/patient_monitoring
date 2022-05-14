@@ -15,6 +15,7 @@
     "@react-native-firebase/auth": "^14.9.0",
     "@react-native-picker/picker": "2.2.1",
     "@react-navigation/bottom-tabs": "^6.3.1",
+    "@react-navigation/drawer": "^6.4.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
     "@redmin_delishaj/react-native-select": "^1.0.6",
@@ -39,9 +40,12 @@
     "react-native-profile-picture": "^1.0.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
-    "sharingan-rn-modal-dropdown": "^1.4.0"
+    "sharingan-rn-modal-dropdown": "^1.4.0",
+    "react-native-gesture-handler": "~2.1.0",
+    "react-native-reanimated": "~2.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

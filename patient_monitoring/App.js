@@ -78,6 +78,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+<<<<<<< HEAD
         <Stack.Screen
           name="Login"
           component={Login}
@@ -94,6 +95,10 @@ const App = () => {
           name="NewPassword"
           component={NewPassword}
           options={{ title: "", headerTransparent: true, headerTintColor: "brightblue" }} />
+=======
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Profile" component={Profile} />
+>>>>>>> 6637caa3746a6ef1ff7e30ca4ef794f81bed15b4
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
@@ -110,4 +115,81 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< HEAD
 export default App;
+=======
+export default App;
+
+/*import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
+
+import colors from "./assets/colors/colors";
+
+import Home from "./components/Home";
+import Export from "./components/Export";
+import Profile from "./components/Profile";
+import newPasient from "./components/newPasient";
+import BloodPressure from "./components/BloodPressure";
+import Login from "./components/Login";
+
+
+import FirebaseKeys from "./firebase";
+
+const tabNavigator = createBottomTabNavigator(
+  {
+    Home: {
+    screen: Home,
+    BottomTabNavigationOptions: {
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home-outline" size={28} color={color} />
+          ),
+      }
+    },
+    Export: {
+      screen: Export,
+      BottomTabNavigationOptions: {
+      options: {
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="download-outline" size={28} color={color} />
+          ),
+      }
+      }
+    },
+    Profile: {
+      screen: Profile,
+      BottomTabNavigationOptions: {
+        tabBarIcon: ({ color }) => (
+          <Ionicons name="person-outline" size={28} color={color} />
+        ),
+      }
+    }
+  },
+  {
+    tabBarOptions: {
+      style: StyleSheet.tabBar,
+      activeTintColor: colors.blue,
+      inactiveTintColor: colors.grey1,
+      showLabel: false,
+    }
+  }
+);
+
+const authStack = createStackNavigator ({
+  Login: Login,
+});
+
+export default tabNavigator (
+  createSwitchNavigator({
+    Home: Home,
+    Profile: Profile
+  }
+  )
+)
+*/
+>>>>>>> 6637caa3746a6ef1ff7e30ca4ef794f81bed15b4
