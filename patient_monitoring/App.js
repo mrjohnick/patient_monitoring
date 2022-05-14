@@ -81,6 +81,7 @@ const App = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <Stack.Screen
           name="Login"
           component={Login}
@@ -109,6 +110,17 @@ const App = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Profile" component={Profile} />
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+        <Stack.Screen
+          name="Login"
+          component={Login} />
+        <Stack.Screen
+          name="Profile"
+          component={Profile} />
+        <Stack.Screen
+          name="NewPassword"
+          component={NewPassword} />
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
@@ -125,6 +137,7 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< HEAD
 export default App;
 <<<<<<< HEAD
 =======
@@ -208,3 +221,7 @@ export default tabNavigator (
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+
+export default App;
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619

@@ -81,15 +81,21 @@ const Home = ({ navigation }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
       
       LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
 
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+<<<<<<< HEAD
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
@@ -208,15 +214,19 @@ const Home = ({ navigation }) => {
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   // To get the current status of menu
   const [showMenu, setShowMenu] = useState(false);
 
 =======
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
 
   // To get the current status of menu
   const [showMenu, setShowMenu] = useState(false);
 
+<<<<<<< HEAD
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
 
@@ -224,12 +234,29 @@ const Home = ({ navigation }) => {
   const [showMenu, setShowMenu] = useState(false);
 
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
   // Animated properties
   const offsetValue = useRef(new Animated.Value(0)).current;
   // Scale initially must be one
   const scaleValue = useRef(new Animated.Value(1)).current;
   const closeButtonOffset = useRef(new Animated.Value(0)).current;
 
+=======
+
+  // To get the current status of menu
+  const [showMenu, setShowMenu] = useState(false);
+
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
+  // Animated properties
+  const offsetValue = useRef(new Animated.Value(0)).current;
+  // Scale initially must be one
+  const scaleValue = useRef(new Animated.Value(1)).current;
+  const closeButtonOffset = useRef(new Animated.Value(0)).current;
+
+<<<<<<< HEAD
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
   // State of custom room switch
   const onSelectSwitch = (index) => {
     alert("Selected index: " + index);
@@ -374,6 +401,7 @@ const Home = ({ navigation }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
@@ -381,6 +409,11 @@ const Home = ({ navigation }) => {
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                       {patient.room == "1" ? (
                         <View>
                           <Modal
@@ -398,6 +431,9 @@ const Home = ({ navigation }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                       <Modal visible={hmodalOpen} animationType='fade' transparent={true}>
                         <View style={styles.modalBackround}>                       
                           <View style={styles.modalContainer}> 
@@ -486,10 +522,13 @@ const Home = ({ navigation }) => {
                                   }}
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+<<<<<<< HEAD
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                 />
                                 <View>
                                   <LineChart
@@ -516,6 +555,9 @@ const Home = ({ navigation }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
 
                               </View>
 
@@ -541,12 +583,15 @@ const Home = ({ navigation }) => {
 =======
                               </View>
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+<<<<<<< HEAD
 =======
                               </View>
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
                               </View>
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                             </View>
                           </Modal>
                           <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
@@ -575,6 +620,9 @@ const Home = ({ navigation }) => {
                                   size={24}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                 />
                               </View>
                               <View style={styles.liveMeasurement}>
@@ -691,6 +739,7 @@ const Home = ({ navigation }) => {
                                     </View>
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+<<<<<<< HEAD
                                   </View>
                                 </Modal>
                               </View>
@@ -819,6 +868,8 @@ const Home = ({ navigation }) => {
                                         />
                                       </View>
                                     </View>
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                   </View>
                                 </Modal>
                               </View>
@@ -826,13 +877,19 @@ const Home = ({ navigation }) => {
                           </TouchableOpacity>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                           <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
 =======
                           <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+<<<<<<< HEAD
 =======
                           <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                             <View style={styles.measurementsItem}>
                               <View style={styles.measurementheader}>
                                 <View style={styles.rowcontainer}>
@@ -840,6 +897,9 @@ const Home = ({ navigation }) => {
                                     <Text style={styles.measurementsTitles}>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                       Breath Rate
                                     </Text>
                                     <Text style={styles.liveMeasurementTitle}>
@@ -848,15 +908,21 @@ const Home = ({ navigation }) => {
                                     <Text style={styles.breathsPerMinuteTitle}>
                                       breaths/min
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                       Blood Oxygen (SPO2)
                                     </Text>
                                     <Text style={styles.liveMeasurementTitle}>
                                       {patient.Oxygen}
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
                                     </Text>
                                     <Text style={styles.lastUpdatedTitle}>
@@ -866,6 +932,9 @@ const Home = ({ navigation }) => {
                                   <Image
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                     style={styles.img3}
                                     source={require("../assets/images/lung.png")}
                                   />
@@ -874,6 +943,7 @@ const Home = ({ navigation }) => {
 <<<<<<< HEAD
 
 =======
+<<<<<<< HEAD
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
 =======
                                     style={styles.img2}
@@ -881,6 +951,8 @@ const Home = ({ navigation }) => {
                                   />
                                 </View>
 =======
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                     style={styles.img2}
                                     source={require("../assets/images/o2.png")}
                                   />
@@ -959,6 +1031,7 @@ const Home = ({ navigation }) => {
                                     source={require("../assets/images/lung.png")}
                                   />
                                 </View>
+<<<<<<< HEAD
 
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
                                 <Ionicicon
@@ -1038,14 +1111,21 @@ const Home = ({ navigation }) => {
                                 </View>
 
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+>>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                                 <Ionicicon
                                   name={"chevron-forward-outline"}
                                   style={styles.arrowIcon}
                                   size={24}
                                 />
                               </View>
+<<<<<<< HEAD
 =======
 >>>>>>> 2148ec4f7dd4e01acdee481273d2dc4956b47b2a
+=======
+>>>>>>> 4421bcf5b5a96bd812a4a8337fef8c070fa67619
                             </View>
                           </TouchableOpacity>
                         </View>
