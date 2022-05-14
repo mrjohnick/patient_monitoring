@@ -56,10 +56,25 @@ const Home = ({ navigation }) => {
   const [hmodalOpen, SetHmodalOpen] = useState(false);
   const [bmodalOpen, SetBmodalOpen] = useState(false);
   const [omodalOpen, SetOmodalOpen] = useState(false);
+  // useState for counter
+  const [counter, setCounter] = useState(0);
 
   // firebase ref
   const [patients, setPatients] = useState([]);
   const patientsCollectionRef = collection(db, "patients");
+
+// useEffect so counter counts up 1, for each second
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCounter((counter) => counter + 1);
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+   };
+  }, []);
+
+
 
   // Number gen, dont need to to touch
   function randomNumberInRange(min, max) {
@@ -78,6 +93,9 @@ const Home = ({ navigation }) => {
       handleBreath();
       handleOxygen();
       LogBox.ignoreLogs(["Setting a timer for a long period of time"]); // Removes timer-warning
+      
+      LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
+
     }, MINUTE_MS);
 
     return () => clearInterval(interval);
@@ -102,6 +120,7 @@ const Home = ({ navigation }) => {
   const room1Handler = async (heart, breath, oxygen) => {
     const patientsDoc = doc(db, "patients", "room1");
     const newFields = { Heart: heart, Breath: breath, Oxygen: oxygen };
+    setCounter(0);
     await updateDoc(patientsDoc, newFields);
   };
 
@@ -345,6 +364,7 @@ const Home = ({ navigation }) => {
                 {patients.map((patient) => {
                   return (
                     <View>
+
                       {patient.room == "1" ? (
                         <View>
                           <Modal
@@ -359,6 +379,92 @@ const Home = ({ navigation }) => {
                                   size={40}
                                   style={styles.modalClose}
                                   onPress={() => SetHmodalOpen(false)}
+                      <Modal visible={hmodalOpen} animationType='fade' transparent={true}>
+                        <View style={styles.modalBackround}>                       
+                          <View style={styles.modalContainer}> 
+                            <MaterialIcons 
+                              name='close'
+                              size={40}
+                              style={styles.modalClose}
+                              onPress={() => SetHmodalOpen(false)}
+                            />
+                            <View>
+                                <LineChart
+                                  data={dataHeart}
+                                  width={Dimensions.get("screen").width}
+                                  height={Dimensions.get("screen").height / 3}
+                                  yAxisLabel=""
+                                  yAxisSuffix=""
+                                  xAxisLabel="m"
+                                  yAxisInterval={1} // optional, defaults to 1
+                                  chartConfig={chartConfig}
+                                  fromNumber={180} // max value
+                                  fromZero={true} // min value
+                                  withDots={false} // removes dots
+                                  withInnerLines={false} // removes the grid on the chart
+                                  withShadow={false} // removes the shadow under the line, default true
+                                  bezier
+                                  style={{
+                                    marginVertical: 8,
+                                    borderRadius: 16,
+                                  }}
+                                /> 
+                            </View>
+                          </View>
+                        </View>
+                      </Modal>
+                      <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
+                        <View style={styles.measurementsItem}>
+                         <View style={styles.measurementheader}>
+                          <View style={styles.rowcontainer}>                                                                    
+                             <View style={styles.allmeasurementsContainer}>
+                              <Text style={styles.measurementsTitles}>
+                              Heart Rate (BPM)</Text>
+                             <Text style={styles.liveMeasurementTitle}>
+                              {patient.Heart}</Text>
+                              <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
+                            </View>
+                            <Image
+                              style={styles.img} 
+                              source = {require('../assets/images/heart_rate.png')} 
+                              />                         
+                          </View>
+                            <Ionicicon
+                              name={"chevron-forward-outline"}
+                              style={styles.arrowIcon}
+                              size={24}
+                            />
+                         </View>                     
+                            <View style={styles.liveMeasurement}>
+                            <Modal visible={omodalOpen} animationType='fade' transparent={true}>
+                              <View style={styles.modalBackround}>
+                                <View style={styles.modalContainer}> 
+                                  <MaterialIcons 
+                                    name='close'
+                                    size={40}
+                                    style={styles.modalClose}
+                                    onPress={() => SetOmodalOpen(false)}
+                                  />
+                                <View>
+                                <LineChart
+                                  data={dataOxygen}
+                                  width={Dimensions.get("screen").width}
+                                  height={Dimensions.get("screen").height / 3}
+                                  yAxisLabel=""
+                                  yAxisSuffix=""
+                                  xAxisLabel="m"
+                                  yAxisInterval={1} // optional, defaults to 1
+                                  chartConfig={chartConfig}
+                                  fromNumber={100} // max value
+                                  fromZero={true} // min value
+                                  withDots={false} // removes dots
+                                  withInnerLines={false} // removes the grid on the chart
+                                  withShadow={false} // removes the shadow under the line, default true
+                                  bezier
+                                  style={{
+                                    marginVertical: 8,
+                                    borderRadius: 16,
+                                  }}
                                 />
                                 <View>
                                   <LineChart
@@ -382,7 +488,28 @@ const Home = ({ navigation }) => {
                                     }}
                                   />
                                 </View>
+
                               </View>
+
+                          </View>
+                        </View>
+                        </Modal> 
+                                                                                          
+                            
+                        </View>
+                        </View> 
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
+                        <View style={styles.measurementsItem}>
+                          <View style={styles.measurementheader}>
+                          <View style={styles.rowcontainer}>                                                                    
+                             <View style={styles.allmeasurementsContainer}>
+                              <Text style={styles.measurementsTitles}>
+                              Blood Oxygen (SPO2)</Text>
+                             <Text style={styles.liveMeasurementTitle}>
+                              {patient.Oxygen}</Text>
+                              <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
+
                             </View>
                           </Modal>
                           <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
@@ -482,6 +609,7 @@ const Home = ({ navigation }) => {
                                 />
                               </View>
 
+
                               <View style={styles.liveMeasurement}>
                                 <Modal
                                   visible={bmodalOpen}
@@ -549,6 +677,26 @@ const Home = ({ navigation }) => {
                                     source={require("../assets/images/lung.png")}
                                   />
                                 </View>
+
+                           
+                          </View>
+                          
+                        </View>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => SetBmodalOpen(true)}>
+                        <View style={styles.measurementsItem}>
+                          <View style={styles.measurementheader}>
+                           <View style={styles.rowcontainer}>                                                                    
+                              <View style={styles.allmeasurementsContainer}>
+                                <Text style={styles.measurementsTitles}>
+                                Breath Rate</Text>
+                                <Text style={styles.liveMeasurementTitle}>
+                                {patient.Breath}</Text>
+                                <Text style={styles.breathsPerMinuteTitle}>
+                                breaths/min
+                                </Text>
+                                <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
+
 
                                 <Ionicicon
                                   name={"chevron-forward-outline"}
