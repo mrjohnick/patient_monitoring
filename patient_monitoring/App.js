@@ -89,11 +89,11 @@ const App = () => {
         <Stack.Screen
           name="EditProfile"
           component={Edit}
-          options={{ headerShown: false }} />
+          options={{ title: "", headerBackTitle: "Profile", headerTransparent: true, headerTintColor: "brightblue" }} />
         <Stack.Screen
           name="NewPassword"
           component={NewPassword}
-          options={{ title: "", headerTransparent: true, headerTintColor: "brightblue" }} />
+          options={{ title: "", headerBackTitle: "Login", headerTransparent: true, headerTintColor: "brightblue" }} />
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}

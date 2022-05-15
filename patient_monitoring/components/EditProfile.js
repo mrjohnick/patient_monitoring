@@ -2,11 +2,10 @@ import react, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, StyleSheet, View, TextInput } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { Title } from "react-native-paper";
-import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { AdditionalUserInfo, getAdditionalUserInfo, updateCurrentUser, updateProfile, onAuthStateChanged } from "firebase/auth";
 
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import * as Login from "./Login";
 import * as Profile from "./Profile";
 import TabNavigator from "../App";
@@ -19,23 +18,39 @@ const Edit = () => {
 
     const navigation = useNavigation()
 
-    const updateInfo = () => {
-        updateCurrentUser(auth, name, phone)
+
+
+    const abc = () => {
+        onAuthStateChanged(auth, name, phone)
             .then(userCredentials => {
-                const user = userCredentials.user;
-                console.log("New name and phone for ", user.name)
+                dispatchEvent(
+                    Login({
+                        email: userCredentials.email,
+                        uid: userCredentials.uid,
+                        displayName: userCredentials.displayName,
+                        phone: userCredentials.phone,
+                        photoUrl: userCredentials.photoURL,
+                    })
+                )
+                console.log("Added new information")
             })
             .catch(error => alert(error.message))
     }
 
+
+
+
+    /*const updateInfo = () => {
+        updateCurrentUser(auth, name, phone)
+            .then(userCredentials => {
+                const user = userCredentials.user;
+                console.log('Logged in with:', user.name);
+            })
+            .catch(error => alert(error.message))
+    }*/
+
     return (
         <View style={styles.container}>
-            <TouchableOpacity
-                onPress={() => { navigation.navigate("Profile") }}
-                style={styles.back}
-            >
-                <Ionicons name="arrow-back-sharp" size={40} />
-            </TouchableOpacity>
             <Title style={styles.header}> Edit user </Title>
             <View style={styles.inputContainer}>
                 <TextInput
@@ -54,7 +69,7 @@ const Edit = () => {
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={updateInfo}
+                    onPress={abc}
                     style={styles.button}
                 >
                     <Text style={styles.button}>Save</Text>
@@ -77,15 +92,17 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         transform: [{ translateY: -80 }],
     },
-    back: {
-        alignSelf: 'baseline',
-        bottom: 100,
-        left: 20,
-    },
     inputContainer: {
         width: '80%',
         height: '30%',
-        bottom: 20,
+    },
+    radiobuttons: {
+        bottom: 40,
+    },
+    radio: {
+        fontWeight: '500',
+        marginLeft: 40,
+
     },
     input: {
         paddingHorizontal: 1,
@@ -96,7 +113,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_500Medium',
     },
     buttonContainer: {
-        top: 30,
+        top: 200,
         borderRadius: 50,
         width: '80%',
     },

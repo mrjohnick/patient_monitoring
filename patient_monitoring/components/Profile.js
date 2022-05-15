@@ -25,7 +25,7 @@ const Profile = () => {
       <TouchableOpacity style={styles.edit}
         onPress={() => { navigation.navigate("EditProfile") }}
       >
-        <Ionicons name="create" size={25} color="royalblue" />
+        <Ionicons name="create-outline" size={30} color="royalblue" />
       </TouchableOpacity>
       <Title style={styles.header}>Profile</Title>
       <View style={styles.userInfo}>
