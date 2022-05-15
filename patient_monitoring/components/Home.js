@@ -61,13 +61,19 @@ const Home = ({ navigation }) => {
 =======
   // useState for counter
   const [counter, setCounter] = useState(0);
+<<<<<<< HEAD
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
+=======
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
   // firebase ref
   const [patients, setPatients] = useState([]);
   const patientsCollectionRef = collection(db, "patients");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
   // useEffect so counter counts up 1, for each second
   useEffect(() => {
     const interval = setInterval(() => {
@@ -222,10 +228,17 @@ const Home = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   // To get the current status of menu
   const [showMenu, setShowMenu] = useState(false);
 
+=======
+
+  // To get the current status of menu
+  const [showMenu, setShowMenu] = useState(false);
+
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
 =======
 
   // To get the current status of menu
@@ -393,6 +406,7 @@ const Home = ({ navigation }) => {
                                   size={40}
                                   style={styles.modalClose}
                                   onPress={() => SetHmodalOpen(false)}
+<<<<<<< HEAD
 <<<<<<< HEAD
                                 />
                                 <View>
@@ -606,6 +620,123 @@ const Home = ({ navigation }) => {
                               </View>
                             </View>
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
+=======
+                                />
+                                <View>
+                                  <LineChart
+                                    data={dataHeart}
+                                    width={Dimensions.get("screen").width}
+                                    height={Dimensions.get("screen").height / 3}
+                                    yAxisLabel=""
+                                    yAxisSuffix=""
+                                    xAxisLabel="m"
+                                    yAxisInterval={1} // optional, defaults to 1
+                                    chartConfig={chartConfig}
+                                    fromNumber={180} // max value
+                                    fromZero={true} // min value
+                                    withDots={false} // removes dots
+                                    withInnerLines={false} // removes the grid on the chart
+                                    withShadow={false} // removes the shadow under the line, default true
+                                    bezier
+                                    style={{
+                                      marginVertical: 8,
+                                      borderRadius: 16,
+                                    }}
+                                  />
+                                </View>
+                                <View style={styles.averageContainer}>
+                                  <View style={styles.averageBoxLeft}>
+                                    <Text style={styles.averageText}>Average BPM:{"\n"}
+                                    {avg(heartGraph)}</Text>
+                                  </View>
+                                  <View style={styles.averageBoxRight}>
+                                  <Text style={styles.averageText}>Last BPM:{"\n"}
+                                  {patient.Heart}</Text>
+                                  </View>
+                                </View>
+                              </View>
+                            </View>
+                          </Modal>
+                          <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
+                            <View style={styles.measurementsItem}>
+                              <View style={styles.measurementheader}>
+                                <View style={styles.rowcontainer}>
+                                  <View style={styles.allmeasurementsContainer}>
+                                    <Text style={styles.measurementsTitles}>
+                                      Heart Rate (BPM)
+                                    </Text>
+                                    <Text style={styles.liveMeasurementTitle}>
+                                      {patient.Heart}
+                                    </Text>
+                                    <Text style={styles.lastUpdatedTitle}>
+                                    {counter}s ago
+                                    </Text>
+                                  </View>
+                                  <Image
+                                    style={styles.img}
+                                    source={require("../assets/images/heart_rate.png")}
+                                  />
+                                </View>
+                                <Ionicicon
+                                  name={"chevron-forward-outline"}
+                                  style={styles.arrowIcon}
+                                  size={24}
+                                />
+                              </View>
+                              <View style={styles.liveMeasurement}>
+                                <Modal
+                                  visible={omodalOpen}
+                                  animationType="fade"
+                                  transparent={true}
+                                >
+                                  <View style={styles.modalBackround}>
+                                    <View style={styles.modalContainer}>
+                                      <MaterialIcons
+                                        name="close"
+                                        size={40}
+                                        style={styles.modalClose}
+                                        onPress={() => SetOmodalOpen(false)}
+                                      />
+                                      <View>
+                                        <LineChart
+                                          data={dataOxygen}
+                                          width={Dimensions.get("screen").width}
+                                          height={
+                                            Dimensions.get("screen").height / 3
+                                          }
+                                          yAxisLabel=""
+                                          yAxisSuffix=""
+                                          xAxisLabel="m"
+                                          yAxisInterval={1} // optional, defaults to 1
+                                          chartConfig={chartConfig}
+                                          fromNumber={100} // max value
+                                          fromZero={true} // min value
+                                          withDots={false} // removes dots
+                                          withInnerLines={false} // removes the grid on the chart
+                                          withShadow={false} // removes the shadow under the line, default true
+                                          bezier
+                                          style={{
+                                            marginVertical: 8,
+                                            borderRadius: 16,
+                                          }}
+                                        />
+                                      </View>
+                                      <View style={styles.averageContainer}>
+                                          <View style={styles.averageBoxLeft}>
+                                            <Text style={styles.averageText}>Average SPO2:{"\n"}
+                                            {avg(oxygenGraph)}</Text>
+                                          </View>
+                                          <View style={styles.averageBoxRight}>
+                                            <Text style={styles.averageText}>Last SPO2:{"\n"}
+                                              {patient.Oxygen}</Text>
+                                          </View>
+                                      </View>
+                                    </View>
+                                  </View>
+                                </Modal>
+                              </View>
+                            </View>
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
                           </TouchableOpacity>
                           <TouchableOpacity onPress={() => SetOmodalOpen(true)}>
                             <View style={styles.measurementsItem}>
@@ -620,7 +751,11 @@ const Home = ({ navigation }) => {
                                     </Text>
                                     <Text style={styles.lastUpdatedTitle}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                       1 min ago
+=======
+                                    {counter}s ago
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
 =======
                                     {counter}s ago
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
@@ -677,7 +812,10 @@ const Home = ({ navigation }) => {
                                         />
                                       </View>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
                                       <View style={styles.averageContainer}>
                                         <View style={styles.averageBoxLeft}>
                                           <Text style={styles.averageText}>Average BR:{"\n"}
@@ -688,6 +826,9 @@ const Home = ({ navigation }) => {
                                         {patient.Breath}</Text>
                                         </View>
                                       </View>
+<<<<<<< HEAD
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
+=======
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
                                     </View>
                                   </View>
@@ -711,7 +852,11 @@ const Home = ({ navigation }) => {
                                     </Text>
                                     <Text style={styles.lastUpdatedTitle}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                       1 min ago
+=======
+                                    {counter}s ago
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
 =======
                                     {counter}s ago
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
@@ -900,15 +1045,21 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
 <<<<<<< HEAD
+<<<<<<< HEAD
     height: "50%",
     marginTop: "auto",
     backgroundColor: "white",
 =======
+=======
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
     height: "60%",
     marginTop: "auto",
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+<<<<<<< HEAD
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
+=======
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
   },
   modalClose: {
@@ -957,7 +1108,10 @@ const styles = StyleSheet.create({
     marginLeft: 14,
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
   averageBoxLeft:{
     flex:0.9,
     borderWidth: 1,
@@ -992,6 +1146,9 @@ const styles = StyleSheet.create({
      textAlign: 'center',
      padding: 5,
    },
+<<<<<<< HEAD
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
+=======
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
 });
 

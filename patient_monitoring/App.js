@@ -81,6 +81,7 @@ const App = () => {
         <Stack.Screen
           name="Login"
 <<<<<<< HEAD
+<<<<<<< HEAD
           component={Login}
           options={{ headerShown: false }} />
         <Stack.Screen
@@ -96,6 +97,8 @@ const App = () => {
           component={NewPassword}
           options={{ title: "", headerBackTitle: "Login", headerTransparent: true, headerTintColor: "brightblue" }} />
 =======
+=======
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
           component={Login} />
         <Stack.Screen
           name="Profile"
@@ -103,6 +106,9 @@ const App = () => {
         <Stack.Screen
           name="NewPassword"
           component={NewPassword} />
+<<<<<<< HEAD
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
+=======
 >>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
         <Stack.Screen
           name="TabNavigator"
