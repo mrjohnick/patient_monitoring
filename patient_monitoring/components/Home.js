@@ -56,10 +56,30 @@ const Home = ({ navigation }) => {
   const [hmodalOpen, SetHmodalOpen] = useState(false);
   const [bmodalOpen, SetBmodalOpen] = useState(false);
   const [omodalOpen, SetOmodalOpen] = useState(false);
-
+  // useState for counter
+  const [counter, setCounter] = useState(0);
   // firebase ref
   const [patients, setPatients] = useState([]);
   const patientsCollectionRef = collection(db, "patients");
+
+  // useEffect so counter counts up 1, for each second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((counter) => counter + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+    }, []);
+  // Function for calculating average of HR/BR/SPO2 array
+  function avg(heartGraph) {
+    var sum = 0;
+    heartGraph.forEach(function (item, idx) {
+      sum += item;
+    });
+    return sum / heartGraph.length;
+  }
 
   // Number gen, dont need to to touch
   function randomNumberInRange(min, max) {
@@ -102,6 +122,7 @@ const Home = ({ navigation }) => {
   const room1Handler = async (heart, breath, oxygen) => {
     const patientsDoc = doc(db, "patients", "room1");
     const newFields = { Heart: heart, Breath: breath, Oxygen: oxygen };
+    setCounter(0);
     await updateDoc(patientsDoc, newFields);
   };
 
@@ -382,6 +403,16 @@ const Home = ({ navigation }) => {
                                     }}
                                   />
                                 </View>
+                                <View style={styles.averageContainer}>
+                                  <View style={styles.averageBoxLeft}>
+                                    <Text style={styles.averageText}>Average BPM:{"\n"}
+                                    {avg(heartGraph)}</Text>
+                                  </View>
+                                  <View style={styles.averageBoxRight}>
+                                  <Text style={styles.averageText}>Last BPM:{"\n"}
+                                  {patient.Heart}</Text>
+                                  </View>
+                                </View>
                               </View>
                             </View>
                           </Modal>
@@ -397,7 +428,7 @@ const Home = ({ navigation }) => {
                                       {patient.Heart}
                                     </Text>
                                     <Text style={styles.lastUpdatedTitle}>
-                                      1 min ago
+                                    {counter}s ago
                                     </Text>
                                   </View>
                                   <Image
@@ -449,6 +480,16 @@ const Home = ({ navigation }) => {
                                           }}
                                         />
                                       </View>
+                                      <View style={styles.averageContainer}>
+                                          <View style={styles.averageBoxLeft}>
+                                            <Text style={styles.averageText}>Average SPO2:{"\n"}
+                                            {avg(oxygenGraph)}</Text>
+                                          </View>
+                                          <View style={styles.averageBoxRight}>
+                                            <Text style={styles.averageText}>Last SPO2:{"\n"}
+                                              {patient.Oxygen}</Text>
+                                          </View>
+                                      </View>
                                     </View>
                                   </View>
                                 </Modal>
@@ -467,7 +508,7 @@ const Home = ({ navigation }) => {
                                       {patient.Oxygen}
                                     </Text>
                                     <Text style={styles.lastUpdatedTitle}>
-                                      1 min ago
+                                    {counter}s ago
                                     </Text>
                                   </View>
                                   <Image
@@ -520,6 +561,16 @@ const Home = ({ navigation }) => {
                                           }}
                                         />
                                       </View>
+                                      <View style={styles.averageContainer}>
+                                        <View style={styles.averageBoxLeft}>
+                                          <Text style={styles.averageText}>Average BR:{"\n"}
+                                          {avg(breathGraph)}</Text>
+                                        </View>
+                                        <View style={styles.averageBoxRight}>
+                                        <Text style={styles.averageText}>Last BR:{"\n"}
+                                        {patient.Breath}</Text>
+                                        </View>
+                                      </View>
                                     </View>
                                   </View>
                                 </Modal>
@@ -541,7 +592,7 @@ const Home = ({ navigation }) => {
                                       breaths/min
                                     </Text>
                                     <Text style={styles.lastUpdatedTitle}>
-                                      1 min ago
+                                    {counter}s ago
                                     </Text>
                                   </View>
                                   <Image
@@ -726,9 +777,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.3)",
   },
   modalContainer: {
-    height: "50%",
+    height: "60%",
     marginTop: "auto",
     backgroundColor: "white",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   modalClose: {
     marginTop: 0,
@@ -775,6 +828,40 @@ const styles = StyleSheet.create({
   allmeasurementsContainer: {
     marginLeft: 14,
   },
+  averageBoxLeft:{
+    flex:0.9,
+    borderWidth: 1,
+    marginLeft: 40,
+    marginRight: 15,
+    borderColor: colors.grey3,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+   },
+   averageBoxRight:{
+     flex:0.9,
+     borderWidth: 1,
+     marginLeft: 15,
+     marginRight: 40,
+     borderColor: colors.grey3,
+     borderTopLeftRadius: 5,
+     borderTopRightRadius: 5,
+     borderBottomLeftRadius: 5,
+     borderBottomRightRadius: 5,
+    },
+   averageContainer:{
+     flex: 1,
+     flexDirection: 'row',
+     flexWrap: "wrap",
+   },
+   averageText:{
+     fontFamily: "Montserrat_400Regular",
+     fontSize: 15,
+     color: colors.grey1,
+     textAlign: 'center',
+     padding: 5,
+   },
 });
 
 export default Home;
