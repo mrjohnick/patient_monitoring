@@ -42,11 +42,16 @@
     "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+<<<<<<< HEAD
     "react-native-select-dropdown": "^1.13.0",
+=======
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
     "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
-    "sharingan-rn-modal-dropdown": "^1.4.0"
+    "sharingan-rn-modal-dropdown": "^1.4.0",
+    "react-native-gesture-handler": "~2.1.0",
+    "react-native-reanimated": "~2.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

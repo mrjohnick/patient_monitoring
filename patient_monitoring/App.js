@@ -80,6 +80,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="Login"
+<<<<<<< HEAD
           component={Login}
           options={{ headerShown: false }} />
         <Stack.Screen
@@ -94,6 +95,15 @@ const App = () => {
           name="NewPassword"
           component={NewPassword}
           options={{ title: "", headerBackTitle: "Login", headerTransparent: true, headerTintColor: "brightblue" }} />
+=======
+          component={Login} />
+        <Stack.Screen
+          name="Profile"
+          component={Profile} />
+        <Stack.Screen
+          name="NewPassword"
+          component={NewPassword} />
+>>>>>>> 6d45a802992a62f6fbef9104386673273cbeb3d7
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
