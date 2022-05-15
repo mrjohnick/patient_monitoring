@@ -58,22 +58,43 @@ const Home = ({ navigation }) => {
   const [patients, setPatients] = useState([]);
   const patientsCollectionRef = collection(db, "patients");
 
-// useEffect so counter counts up 1, for each second
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCounter((counter) => counter + 1);
-  }, 1000);
+  // useEffect so counter counts up 1, for each second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCounter((counter) => counter + 1);
+    }, 1000);
 
-  return () => {
-    clearInterval(interval);
-   };
-  }, []);
+    return () => {
+      clearInterval(interval);
+    };
+    }, []);
 
-
+  // Functions for calculating average of each HR/BR/SPO2 array
+  function avg1(heartGraph) {
+    var sum = 0;
+    heartGraph.forEach(function (item, idx) {
+      sum += item;
+    });
+    return sum / heartGraph.length;
+  }
+  function avg2(breathGraph) {
+    var sum = 0;
+    breathGraph.forEach(function (item, idx) {
+      sum += item;
+    });
+    return sum / breathGraph.length;
+  }
+  function avg3(oxygenGraph) {
+    var sum = 0;
+    oxygenGraph.forEach(function (item, idx) {
+      sum += item;
+    });
+    return sum / oxygenGraph.length;
+  }
 
   // Number gen, dont need to to touch
   function randomNumberInRange(min, max) {
-    // get number between min (inclusive) and max (inclusive)
+  // get number between min (inclusive) and max (inclusive)
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
@@ -87,7 +108,6 @@ useEffect(() => {
       handleHeart();
       handleBreath();
       handleOxygen();
-      
       LogBox.ignoreLogs(['Setting a timer for a long period of time']) // Removes timer-warning
     }, MINUTE_MS);
 
@@ -204,8 +224,6 @@ useEffect(() => {
     },
   };
 
-
-
   return (
     <View>
       <ScrollView>
@@ -285,6 +303,16 @@ useEffect(() => {
                                   }}
                                 /> 
                             </View>
+                            <View style={styles.averageContainer}>
+                              <View style={styles.averageBoxLeft}>
+                                <Text style={styles.averageText}>Average BPM:{"\n"}
+                                {avg1(heartGraph)}</Text>
+                              </View>
+                              <View style={styles.averageBoxRight}>
+                                <Text style={styles.averageText}>Last BPM:{"\n"}
+                                {patient.Heart}</Text>
+                              </View>
+                            </View>
                           </View>
                         </View>
                       </Modal>
@@ -297,7 +325,7 @@ useEffect(() => {
                               Heart Rate (BPM)</Text>
                              <Text style={styles.liveMeasurementTitle}>
                               {patient.Heart}</Text>
-                              <Text style={styles.lastUpdatedTitle}>{counter}s ago</Text>
+                              <Text style={styles.lastUpdatedTitle}>{counter}s ago </Text>
                             </View>
                             <Image
                               style={styles.img} 
@@ -341,6 +369,16 @@ useEffect(() => {
                                     borderRadius: 16,
                                   }}
                                 />
+                                </View>
+                                <View style={styles.averageContainer}>
+                                  <View style={styles.averageBoxLeft}>
+                                  <Text style={styles.averageText}>Average SPO2:{"\n"}
+                                  {avg3(oxygenGraph)}</Text>
+                                  </View>
+                                  <View style={styles.averageBoxRight}>
+                                  <Text style={styles.averageText}>Last SPO2:{"\n"}
+                                  {patient.Oxygen}</Text>
+                                  </View>
                                 </View>
                           </View>
                         </View>
@@ -406,6 +444,16 @@ useEffect(() => {
                                       }}
                                     />
                                   </View>
+                                  <View style={styles.averageContainer}>
+                                    <View style={styles.averageBoxLeft}>
+                                      <Text style={styles.averageText}>Average BR:{"\n"}
+                                      {avg2(breathGraph)}</Text>
+                                    </View>
+                                    <View style={styles.averageBoxRight}>
+                                    <Text style={styles.averageText}>Last BR:{"\n"}
+                                    {patient.Breath}</Text>
+                                    </View>
+                                </View>
                               </View>
                             </View>
                           </Modal>
@@ -421,7 +469,7 @@ useEffect(() => {
                            <View style={styles.rowcontainer}>                                                                    
                               <View style={styles.allmeasurementsContainer}>
                                 <Text style={styles.measurementsTitles}>
-                                Breath Rate</Text>
+                                Breath Rate (BR)</Text>
                                 <Text style={styles.liveMeasurementTitle}>
                                 {patient.Breath}</Text>
                                 <Text style={styles.breathsPerMinuteTitle}>
@@ -569,9 +617,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   modalContainer:{
-    height: '50%',
+    height: '60%',
     marginTop: 'auto',
     backgroundColor:'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   modalClose: {
     marginTop: 0,
@@ -607,7 +657,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     width: 80,
     marginBottom: 20,
-    marginLeft: 85,
+    marginLeft: 53,
     marginTop: 30,
   },
   rowcontainer:{
@@ -617,6 +667,40 @@ const styles = StyleSheet.create({
   }, 
   allmeasurementsContainer:{
    marginLeft:14,
+  },
+  averageBoxLeft:{
+   flex:0.9,
+   borderWidth: 1,
+   marginLeft: 40,
+   marginRight: 15,
+   borderColor: colors.grey3,
+   borderTopLeftRadius: 5,
+   borderTopRightRadius: 5,
+   borderBottomLeftRadius: 5,
+   borderBottomRightRadius: 5,
+  },
+  averageBoxRight:{
+    flex:0.9,
+    borderWidth: 1,
+    marginLeft: 15,
+    marginRight: 40,
+    borderColor: colors.grey3,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
+   },
+  averageContainer:{
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: "wrap",
+  },
+  averageText:{
+    fontFamily: "Montserrat_400Regular",
+    fontSize: 15,
+    color: colors.grey1,
+    textAlign: 'center',
+    padding: 5,
   },
 
 });
