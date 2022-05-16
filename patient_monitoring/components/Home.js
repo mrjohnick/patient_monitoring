@@ -40,9 +40,9 @@ import {
 import "react-native-gesture-handler";
 
 // Global arrays for charts, each value initialized to 0
-const heartGraph = [71, 68, 72, 66, 81, 75, 89, 85, 83, 79];
-const breathGraph = [14, 13, 12, 14, 13, 15, 13, 14, 15, 16];
-const oxygenGraph = [98, 97, 98, 96, 95, 95, 94, 95, 96, 97];
+export const heartGraph = [71, 68, 72, 66, 81, 75, 89, 85, 83, 79];
+export const breathGraph = [14, 13, 12, 14, 13, 15, 13, 14, 15, 16];
+export const oxygenGraph = [98, 97, 98, 96, 95, 95, 94, 95, 96, 97];
 
 const Home = ({ navigation }) => {
   const [room, setRoom] = useState("Unknown");
@@ -89,7 +89,7 @@ const Home = ({ navigation }) => {
 
   // Timer for number gen, make lower/higher based on how fast u need the data atm
   // Set to 1 minute (60000) when delivering
-  const MINUTE_MS = 10000;
+  const MINUTE_MS = 60000000;
 
   // Generate random numbers every minute (Add timer here?)
   useEffect(() => {
