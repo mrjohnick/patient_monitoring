@@ -12,7 +12,7 @@ const patientData = [
   {
     roomID: "room-2",
     name: "Ruth Johnson",
-    dateOfAdmission: "14/04/22",
+    dateOfAdmission: "23/10/21",
     systolicBloodPressure: 135,
     diastolicBloodPressure: 81,
     bloodOxygen: 98,
