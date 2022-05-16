@@ -7,8 +7,10 @@ import newPasient from "./components/newPasient";
 import BloodPressure from "./components/BloodPressure";
 import colors from "./assets/colors/colors";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { MaterialIcons } from "@expo/vector-icons";
 import Login from "./components/Login";
 import NewPassword from "./components/NewPassword";
+import Room2 from "./components/Room2";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -40,7 +42,16 @@ const TabNavigator = () => {
         component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="home-outline" size={28} color={color} />
+            <MaterialIcons name="looks-one" size={28} color={color} />
+          ),
+        }}
+      />
+    <Tab.Screen
+        name="Room2"
+        component={Room2}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="looks-two" size={28} color={color} />
           ),
         }}
       />
