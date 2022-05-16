@@ -1,7 +1,7 @@
 import react, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, StyleSheet, View, TextInput } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { Title } from "react-native-paper";
+import { Title, RadioButton } from "react-native-paper";
 
 import { AdditionalUserInfo, getAdditionalUserInfo, updateCurrentUser, updateProfile, onAuthStateChanged } from "firebase/auth";
 
@@ -15,39 +15,18 @@ import { updateDoc } from "firebase/firestore";
 const Edit = () => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
+    const [checked, setChecked] = useState([])
 
     const navigation = useNavigation()
 
-
-
-    const abc = () => {
-        onAuthStateChanged(auth, name, phone)
-            .then(userCredentials => {
-                dispatchEvent(
-                    Login({
-                        email: userCredentials.email,
-                        uid: userCredentials.uid,
-                        displayName: userCredentials.displayName,
-                        phone: userCredentials.phone,
-                        photoUrl: userCredentials.photoURL,
-                    })
-                )
-                console.log("Added new information")
-            })
-            .catch(error => alert(error.message))
-    }
-
-
-
-
-    /*const updateInfo = () => {
+    const updateInfo = () => {
         updateCurrentUser(auth, name, phone)
             .then(userCredentials => {
                 const user = userCredentials.user;
                 console.log('Logged in with:', user.name);
             })
             .catch(error => alert(error.message))
-    }*/
+    }
 
     return (
         <View style={styles.container}>
@@ -67,9 +46,33 @@ const Edit = () => {
                     maxLength={9}
                 />
             </View>
+            <View style={styles.radioButtons}>
+                <RadioButton.Group>
+                    <RadioButton.Item
+                        mode="android"
+                        position="trailing"
+                        label="Doctor"
+                        color="#778899"
+                        value="Doctor"
+                        status={checked === 'Doctor' ? 'checked' : 'unchecked'}
+                        onPress={() => setChecked('Doctor')}
+                        style={styles.radio}
+                    />
+                    <RadioButton.Item
+                        mode="android"
+                        position="trailing"
+                        label="Nurse"
+                        color="#778899"
+                        value="Nurse"
+                        status={checked === 'Nurse' ? 'checked' : 'unchecked'}
+                        onPress={() => setChecked('Nurse')}
+                        style={styles.radio}
+                    />
+                </RadioButton.Group>
+            </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={abc}
+                    onPress={updateInfo}
                     style={styles.button}
                 >
                     <Text style={styles.button}>Save</Text>
@@ -88,21 +91,22 @@ const styles = StyleSheet.create({
         marginTop: '50%'
     },
     header: {
-        fontSize: 20,
+        fontSize: 23,
         fontWeight: '300',
-        transform: [{ translateY: -80 }],
+        transform: [{ translateY: -70 }],
     },
     inputContainer: {
         width: '80%',
         height: '30%',
     },
-    radiobuttons: {
-        bottom: 40,
+    radioButtons: {
+        width: '90%',
+        marginLeft: '1%',
+        marginBottom: '3%',
+        top: 20
     },
     radio: {
-        fontWeight: '500',
-        marginLeft: 40,
-
+        marginBottom: 10
     },
     input: {
         paddingHorizontal: 1,
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_500Medium',
     },
     buttonContainer: {
-        top: 200,
+        top: 100,
         borderRadius: 50,
         width: '80%',
     },

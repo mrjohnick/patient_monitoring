@@ -32,8 +32,8 @@ const Profile = () => {
         <View>
           <Avatar.Text
             size={100}
-            label="MZ"
-            style={styles.avatar}
+            label={`${auth.currentUser?.name}`}
+            style={{ backgroundColor: 'lightgray' }}
           />
         </View>
       </View >
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: '50%'
   },
   header: {
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: '300',
     transform: [{ translateY: -80 }],
   },
