@@ -89,7 +89,7 @@ const Home = ({ navigation }) => {
 
   // Timer for number gen, make lower/higher based on how fast u need the data atm
   // Set to 1 minute (60000) when delivering
-  const MINUTE_MS = 60000;
+  const MINUTE_MS = 60000000;
 
   // Generate random numbers every minute (Add timer here?)
   useEffect(() => {
