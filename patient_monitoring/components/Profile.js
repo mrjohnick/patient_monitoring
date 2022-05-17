@@ -25,25 +25,29 @@ const Profile = () => {
       <TouchableOpacity style={styles.edit}
         onPress={() => { navigation.navigate("EditProfile") }}
       >
-        <Ionicons name="create-outline" size={30} color="royalblue" />
+        <Ionicons name="md-ellipsis-horizontal-circle-outline" size={35} color="royalblue" />
       </TouchableOpacity>
       <Title style={styles.header}>Profile</Title>
       <View style={styles.userInfo}>
         <View>
           <Avatar.Text
             size={100}
-            label={`${auth.currentUser?.name}`}
-            style={{ backgroundColor: 'lightgray' }}
+            color="white"
+            label={`${auth.currentUser?.email[0]}`}
+            style={{ backgroundColor: 'rgb(192,170,140)' }}
           />
         </View>
       </View >
       <View style={styles.profileBody}>
-        <Title>{auth.currentUser?.name}</Title>
+        <Title style={styles.title}> {`${auth.currentUser?.name}`} </Title>
         <Caption>
-          <Ionicons name="phone-portrait-sharp" size={14} />{auth.currentUser?.phone}
+          <Ionicons name="fitness" size={14} color="rgb(192,170,110)" />{`${auth.currentUser?.checked}`}
         </Caption>
         <Caption>
-          <Ionicons name="mail" size={14} /> {auth.currentUser?.email}
+          <Ionicons name="call" size={14} color="rgb(192,170,110)" />{`${auth.currentUser?.phone}`}
+        </Caption>
+        <Caption>
+          <Ionicons name="mail" size={14} color="rgb(192,170,110)" /> {`${auth.currentUser?.email}`}
         </Caption>
       </View>
       <TouchableOpacity
@@ -63,19 +67,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '50%'
   },
+  edit: {
+    alignSelf: 'flex-end',
+    bottom: 90,
+    right: 35
+  },
   header: {
     fontSize: 23,
     fontWeight: '300',
-    transform: [{ translateY: -80 }],
+    transform: [{ translateY: -90 }],
   },
-  edit: {
-    alignSelf: 'flex-end',
-    bottom: 85,
-    right: 35
+  userInfo: {
+    padding: 15,
   },
   profilebody: {
     margin: 10,
     fontWeight: '200',
+  },
+  title: {
+    alignSelf: 'center',
+    flexWrap: 'nowrap',
+    marginBottom: 20,
+    fontWeight: '300',
   },
   button: {
     color: 'white',
@@ -88,10 +101,4 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     top: 100,
   },
-  userInfo: {
-    padding: 15,
-  },
-  avatar: {
-    backgroundColor: '#D3D3D3',
-  }
 })
