@@ -5,11 +5,12 @@ import XLSX from "xlsx";
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import {heartGraph, oxygenGraph, breathGraph} from "./Home";
+import { heartGraph2, oxygenGraph2, breathGraph2 } from "./Room2";
 
 const Export = () => {
   var room1 = [["Heart"],heartGraph,["Oxygen"],oxygenGraph,["Breath"],breathGraph];
   // Change data to room 2 data when created.
-  var room2 = [["Heart"],heartGraph,["Oxygen"],oxygenGraph,["Breath"],breathGraph];
+  var room2 = [["Heart"],heartGraph2,["Oxygen"],oxygenGraph2,["Breath"],breathGraph2];
   const handleExport = async() => {
   var ws = XLSX.utils.aoa_to_sheet(room1);
   var ws2 = XLSX.utils.aoa_to_sheet(room2);
