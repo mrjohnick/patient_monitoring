@@ -368,6 +368,8 @@ const Home = ({ navigation }) => {
                     <View>
                       {patient.room == "1" ? (
                         <View>
+                           {/*Modal. Setting modal visible=false so it doesnt show on default.
+                           The following code is for the pop-up window*/}
                           <Modal
                             visible={hmodalOpen}
                             animationType="fade"
@@ -375,12 +377,15 @@ const Home = ({ navigation }) => {
                           >
                             <View style={styles.modalBackround}>
                               <View style={styles.modalContainer}>
+                                {/* MaterialIcons for having a close-button inside the Modal.
+                                Setting state false means the modal will close if it is open*/}
                                 <MaterialIcons
                                   name="close"
                                   size={40}
                                   style={styles.modalClose}
                                   onPress={() => SetHmodalOpen(false)}
                                 />
+                                 {/*Displaying chart inside the modal*/}
                                 <View>
                                   <LineChart
                                     data={dataHeart}
@@ -403,6 +408,7 @@ const Home = ({ navigation }) => {
                                     }}
                                   />
                                 </View>
+                                {/*Displaying average and BPM-box inside modal*/}
                                 <View style={styles.averageContainer}>
                                   <View style={styles.averageBoxLeft}>
                                     <Text style={styles.averageText}>Average BPM:{"\n"}
@@ -416,6 +422,8 @@ const Home = ({ navigation }) => {
                               </View>
                             </View>
                           </Modal>
+                          {/*Setting modal-state true to open modal when clicking this button.
+                          This button is not inside the modal*/}
                           <TouchableOpacity onPress={() => SetHmodalOpen(true)}>
                             <View style={styles.measurementsItem}>
                               <View style={styles.measurementheader}>
