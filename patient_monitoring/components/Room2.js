@@ -48,9 +48,9 @@ const Room2 = ({ navigation }) => {
   const [room, setRoom] = useState("Unknown");
 
   // use states for data
-  const [heart, setHeart] = useState(61);
-  const [breath, setBreath] = useState(13);
-  const [oxygen, setOxygen] = useState(97);
+  const [heart, setHeart] = useState(80);
+  const [breath, setBreath] = useState(20);
+  const [oxygen, setOxygen] = useState(120);
 
   // for open/close modals
   const [hmodalOpen, SetHmodalOpen] = useState(false);
@@ -89,7 +89,7 @@ const Room2 = ({ navigation }) => {
 
   // Timer for number gen, make lower/higher based on how fast u need the data atm
   // Set to 1 minute (60000) when delivering
-  const MINUTE_MS = 60000000;
+  const MINUTE_MS = 60000;
 
   // Generate random numbers every minute (Add timer here?)
   useEffect(() => {

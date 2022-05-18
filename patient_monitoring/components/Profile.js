@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { Avatar, Caption, Title } from "react-native-paper";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { auth } from '../firebase';
+import { auth, db } from '../firebase'
 import * as Login from "./Login";
 import Edit from "./EditProfile";
-
+import {
+  collection,
+  getDocs,
+  doc,
+  onSnapshot,
+} from "firebase/firestore";
 
 const Profile = () => {
+
+  const [employees, setEmployees] = useState([]);
+  const employeesCollectionRef = collection(db, "employees");
   const navigation = useNavigation()
 
   const handleSignOut = () => {
@@ -20,6 +28,14 @@ const Profile = () => {
       })
       .catch(error => alert(error.message))
   }
+
+  // Read employee data
+  useEffect(() => {
+    onSnapshot(employeesCollectionRef, (snapshot) =>
+      setEmployees(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    );
+  }, []);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.edit}
@@ -38,18 +54,28 @@ const Profile = () => {
           />
         </View>
       </View >
+      {employees.map((employee) =>  {
+          return (
+            <View>
+      {employee.Email == `${auth.currentUser?.email}` ? (
       <View style={styles.profileBody}>
-        <Title style={styles.title}> {`${auth.currentUser?.name}`} </Title>
+        <Title style={styles.title}> {employee.Name} </Title>
         <Caption>
-          <Ionicons name="fitness" size={14} color="rgb(192,170,110)" />{`${auth.currentUser?.checked}`}
+          <Ionicons name="fitness" size={14} color="rgb(192,170,110)" />{employee.Gender}
         </Caption>
         <Caption>
-          <Ionicons name="call" size={14} color="rgb(192,170,110)" />{`${auth.currentUser?.phone}`}
+          <Ionicons name="call" size={14} color="rgb(192,170,110)" />{employee.Phone}
         </Caption>
         <Caption>
-          <Ionicons name="mail" size={14} color="rgb(192,170,110)" /> {`${auth.currentUser?.email}`}
+          <Ionicons name="mail" size={14} color="rgb(192,170,110)" /> {employee.Email}
         </Caption>
       </View>
+                 ) 
+                 : null}
+          </View>
+          );
+        })}
+        
       <TouchableOpacity
         onPress={handleSignOut}
         style={styles.button}
