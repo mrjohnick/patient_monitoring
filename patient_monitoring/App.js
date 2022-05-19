@@ -80,21 +80,14 @@ const App = () => {
           name="Profile"
           component={Profile}
           options={{
-            headerShown: true,
-            title: "",
-            headerBackTitle: "Home",
-            headerTransparent: true,
-            headerTintColor: "brightblue",
+            headerShown: false,
           }}
         />
         <Stack.Screen
           name="EditProfile"
           component={Edit}
           options={{
-            title: "",
-            headerBackTitle: "Profile",
-            headerTransparent: true,
-            headerTintColor: "brightblue",
+            headerShown: false,
           }}
         />
         <Stack.Screen

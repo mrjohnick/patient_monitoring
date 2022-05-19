@@ -287,10 +287,10 @@ const Room2 = ({ navigation }) => {
     auth
       .signOut()
       .then(() => {
-        navigation.replace("Login")
+        navigation.replace("Login");
       })
-      .catch(error => alert(error.message))
-  }
+      .catch((error) => alert(error.message));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -313,12 +313,11 @@ const Room2 = ({ navigation }) => {
                         size={80}
                         color="white"
                         label={employee.Name[0]}
-                        style={{ backgroundColor: 'rgb(192,170,140)' }}
+                        style={{ backgroundColor: "rgb(192,170,140)" }}
                       />
                     </View>
-                  </View >
-                )
-                  : null}
+                  </View>
+                ) : null}
               </View>
             );
           })}
@@ -329,10 +328,11 @@ const Room2 = ({ navigation }) => {
               {employee.Email == `${auth.currentUser?.email}` ? (
                 <View style={styles.doctorInfo}>
                   <Text style={styles.profileName}>{employee.Name}</Text>
-                  <Text style={styles.profileEmail}>{`${auth.currentUser?.email}`}</Text>
+                  <Text
+                    style={styles.profileEmail}
+                  >{`${auth.currentUser?.email}`}</Text>
                 </View>
-              )
-                : null}
+              ) : null}
             </View>
           );
         })}
@@ -352,10 +352,7 @@ const Room2 = ({ navigation }) => {
             marginLeft={10}
           />
         </View>
-        <TouchableOpacity
-          onPress={handleSignOut}
-          style={styles.logoutbutton}
-        >
+        <TouchableOpacity onPress={handleSignOut} style={styles.logoutbutton}>
           <Text style={styles.logOut}>Log Out</Text>
         </TouchableOpacity>
       </View>
@@ -398,19 +395,19 @@ const Room2 = ({ navigation }) => {
                   // Do Actions here
                   // Scaling the view
                   Animated.timing(scaleValue, {
-                    toValue: showMenu ? 1 : 0.82,
+                    toValue: showMenu ? 1 : 1,
                     duration: 300,
                     useNativeDriver: true,
                   }).start();
 
                   Animated.timing(offsetValue, {
-                    toValue: showMenu ? 0 : 310,
+                    toValue: showMenu ? 0 : 280,
                     duration: 300,
                     useNativeDriver: true,
                   }).start();
 
                   Animated.timing(closeButtonOffset, {
-                    toValue: !showMenu ? -30 : 0,
+                    toValue: !showMenu ? 0 : 0,
                     duration: 300,
                     useNativeDriver: true,
                   }).start();
@@ -441,12 +438,11 @@ const Room2 = ({ navigation }) => {
                               size={55}
                               color="white"
                               label={employee.Name[0]}
-                              style={{ backgroundColor: 'rgb(192,170,140)' }}
+                              style={{ backgroundColor: "rgb(192,170,140)" }}
                             />
                           </View>
-                        </View >
-                      )
-                        : null}
+                        </View>
+                      ) : null}
                     </View>
                   );
                 })}
