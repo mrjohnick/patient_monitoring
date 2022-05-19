@@ -21,11 +21,9 @@ import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
 import profile from "../assets/images/person.png";
 import { MaterialIcons } from "@expo/vector-icons";
-import Dropdown from "../components/Dropdown";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
 import { auth } from "../firebase";
-import CustomSwitch from "./CustomSwitch";
 // Firebase imports
 import { db } from "../firebase";
 import {

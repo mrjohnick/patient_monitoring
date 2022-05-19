@@ -283,8 +283,6 @@ const Home = ({ navigation }) => {
         <View style={styles.darkMode}>
           <Text style={styles.darkModeText}>Dark Mode</Text>
           <Switch
-            value={theme.mode === 'dark'}
-            onValueChange={value => theme.setMode(value ? 'dark' : 'light')}
           />
         </View>
         <TouchableOpacity>

@@ -9,6 +9,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import Login from "./components/Login";
 import NewPassword from "./components/NewPassword";
 import Room2 from "./components/Room2";
+import { ThemeProvider } from "./assets/themes/ThemeManager";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";

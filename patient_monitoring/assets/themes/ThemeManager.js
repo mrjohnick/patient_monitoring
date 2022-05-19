@@ -1,44 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { StatusBar } from "react-native";
-import { Appearance, AppearanceProvider } from "react-native-appearance";
-import { ThemeContext, ThemeProvider } from "styled-components/native";
-import darkTheme from './dark';
-import lightTheme from './light';
+import React, { createContext, useState } from "react";
 
-const ManageThemeProvider = ({ children }) => {
-    const [themeState, setThemeState] = useState(defaultMode)
-    const setMode = mode => {
-        setThemeState(mode)
-    }
-    useEffect(() => {
-        const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-            setThemeState(colorScheme)
-        })
-        return () => subscription.remove()
-    }, [])
+export const ThemeContext = createContext();
+
+export const ThemeProvider = ({ children }) => {
+    const [theme, setTheme] = useState('light');
+
+    const toggleTheme = () => {
+        if (theme === 'light') {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    };
+
     return (
-        <ThemeContext.Provider value={{ mode: themeState, setMode }}>
-            <ThemeProvider
-                theme={themeState === 'dark' ? darkTheme.theme : lightTheme.theme}>
-                <>
-                    <StatusBar
-                        barStyle={themeState === 'dark' ? 'dark-content' : 'light-content'}
-                    />
-                    {children}
-                </>
-            </ThemeProvider>
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            {children}
         </ThemeContext.Provider>
     )
-}
-
-export const useTheme = () => React.useContext(ThemeContext)
-
-const defaultMode = Appearance.getColorScheme() || 'light'
-
-const ThemeManager = ({ children }) => (
-    <AppearanceProvider>
-        <ManageThemeProvider>{children}</ManageThemeProvider>
-    </AppearanceProvider>
-)
-
-export default ThemeManager;
+};
