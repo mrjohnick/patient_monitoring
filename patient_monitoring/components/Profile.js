@@ -128,14 +128,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    marginTop: 60,
+    marginTop: 30,
     fontSize: 23,
     opacity: 0.9,
     fontWeight: "700",
-    transform: [{ translateY: -90 }],
+    transform: [{ translateY: -50 }],
   },
   userInfo: {
-    padding: 15,
+    padding: 35,
   },
   profilebody: {
     margin: 10,
