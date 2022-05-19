@@ -102,6 +102,53 @@ const Edit = () => {
                         NameHandler(employee.id, event);
                       }}
                       style={styles.input}
+      <Title style={styles.header}> Edit user </Title>
+      {employees.map((employee) => {
+        return (
+          <View>
+            {employee.Email == `${auth.currentUser?.email}` ? (
+              <SafeAreaView>
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    placeholder="Username"
+                    defaultValue={employee.Name}
+                    onChangeText={(event) => {
+                      NameHandler(employee.id, event);
+                    }}
+                    style={styles.input}
+                  />
+                  <TextInput
+                    placeholder="Phone number"
+                    defaultValue={employee.Phone}
+                    onChangeText={(event) => {
+                      PhoneHandler(employee.id, event.replace(/[^0-9]/g, ""));
+                    }}
+                    style={styles.input}
+                    maxLength={9}
+                  />
+                </View>
+
+                <View style={styles.radioButtons}>
+                  <RadioButton.Group>
+                    <RadioButton.Item
+                      position="trailing"
+                      label="Male"
+                      color="#778899"
+                      value="Male"
+                      status={
+                        employee.Gender === "Male" ? "checked" : "unchecked"
+                      }
+                      onPress={(value) => CheckHandler(employee.id, "Male")}
+                    />
+                    <RadioButton.Item
+                      position="trailing"
+                      label="Female"
+                      color="#778899"
+                      value="Female"
+                      status={
+                        employee.Gender === "Female" ? "checked" : "unchecked"
+                      }
+                      onPress={() => CheckHandler(employee.id, "Female")}
                     />
                     <TextInput
                       placeholder="Phone number"
@@ -183,12 +230,12 @@ const styles = StyleSheet.create({
     transform: [{ translateY: -70 }],
   },
   inputContainer: {
-    width: "80%",
+    width: "100%",
     height: "30%",
     marginBottom: 80,
   },
   radioButtons: {
-    width: "90%",
+    width: "100%",
     marginLeft: "1%",
     marginBottom: "3%",
   },
