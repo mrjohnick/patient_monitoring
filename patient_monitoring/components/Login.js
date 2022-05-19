@@ -5,8 +5,6 @@ import { Title } from "react-native-paper";
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../firebase';
-
-import Profile from "./Profile";
 import NewPassowrd from "./NewPassword";
 
 
@@ -94,8 +92,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_500Medium',
     },
     header: {
-        fontSize: 20,
-        fontWeight: '300',
+        fontSize: 23,
+        opacity: 0.9,
+        fontWeight: '700',
         transform: [{ translateY: -60 }],
     },
     inputContainer: {

@@ -19,7 +19,7 @@ const NewPassword = () => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior="padding"
+
     >
       <View>
         <Text style={styles.text}>Write an email address and we will send you an email to reset your password</Text>

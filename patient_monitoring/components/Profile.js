@@ -44,43 +44,53 @@ const Profile = () => {
         <Ionicons name="md-ellipsis-horizontal-circle-outline" size={35} color="royalblue" />
       </TouchableOpacity>
       <Title style={styles.header}>Profile</Title>
-      <View style={styles.userInfo}>
-        <View>
-          <Avatar.Text
-            size={100}
-            color="white"
-            label={`${auth.currentUser?.email[0]}`}
-            style={{ backgroundColor: 'rgb(192,170,140)' }}
-          />
-        </View>
-      </View >
-      {employees.map((employee) =>  {
-          return (
-            <View>
-      {employee.Email == `${auth.currentUser?.email}` ? (
-      <View style={styles.profileBody}>
-        <Title style={styles.title}> {employee.Name} </Title>
-        <Caption>
-          <Ionicons name="fitness" size={14} color="rgb(192,170,110)" />{employee.Gender}
-        </Caption>
-        <Caption>
-          <Ionicons name="call" size={14} color="rgb(192,170,110)" />{employee.Phone}
-        </Caption>
-        <Caption>
-          <Ionicons name="mail" size={14} color="rgb(192,170,110)" /> {employee.Email}
-        </Caption>
-      </View>
-                 ) 
-                 : null}
+      {employees.map((employee) => {
+        return (
+          <View>
+            {employee.Email == `${auth.currentUser?.email}` ? (
+              <View style={styles.userInfo}>
+                <View>
+                  <Avatar.Text
+                    size={100}
+                    color="white"
+                    label={employee.Name[0]}
+                    style={{ backgroundColor: 'rgb(192,170,140)' }}
+                  />
+                </View>
+              </View >
+            )
+              : null}
           </View>
-          );
-        })}
-        
+        );
+      })}
+
+      {employees.map((employee) => {
+        return (
+          <View>
+            {employee.Email == `${auth.currentUser?.email}` ? (
+              <View style={styles.profileBody}>
+                <Title style={styles.title}> {employee.Name} </Title>
+                <Caption>
+                  <Ionicons name="fitness" size={14} color="rgb(192,170,110)" />{employee.Gender}
+                </Caption>
+                <Caption>
+                  <Ionicons name="call" size={14} color="rgb(192,170,110)" />{employee.Phone}
+                </Caption>
+                <Caption>
+                  <Ionicons name="mail" size={14} color="rgb(192,170,110)" /> {employee.Email}
+                </Caption>
+              </View>
+            )
+              : null}
+          </View>
+        );
+      })}
+
       <TouchableOpacity
         onPress={handleSignOut}
         style={styles.button}
       >
-        <Text style={{ color: 'white' }}>Sign out</Text>
+        <Text style={{ color: 'white', fontSize: 15, }}>Log out</Text>
       </TouchableOpacity>
     </View >
   )
@@ -95,12 +105,13 @@ const styles = StyleSheet.create({
   },
   edit: {
     alignSelf: 'flex-end',
-    bottom: 90,
+    bottom: 55,
     right: 35
   },
   header: {
     fontSize: 23,
-    fontWeight: '300',
+    opacity: 0.9,
+    fontWeight: '700',
     transform: [{ translateY: -90 }],
   },
   userInfo: {
@@ -114,16 +125,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flexWrap: 'nowrap',
     marginBottom: 20,
-    fontWeight: '300',
+    fontWeight: '500',
   },
   button: {
-    color: 'white',
-    fontFamily: 'Gill Sans',
-    fontSize: 15,
+    fontFamily: 'Montserrat_500Medium',
     alignItems: 'center',
     width: '80%',
     backgroundColor: '#4166f5',
-    padding: 8,
+    padding: 13,
     borderRadius: 25,
     top: 100,
   },

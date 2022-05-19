@@ -42,15 +42,6 @@ const Edit = () => {
 
   const navigation = useNavigation();
 
-  const updateInfo = () => {
-    updateCurrentUser(auth, name, phone)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with:", user.name);
-      })
-      .catch((error) => alert(error.message));
-  };
-
   // Handle employee data
   const NameHandler = async (id, name) => {
     const employeeDoc = doc(db, "employees", id);
@@ -164,7 +155,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 23,
-    fontWeight: "300",
+    opacity: 0.9,
+    fontWeight: '700',
     transform: [{ translateY: -70 }],
   },
   inputContainer: {

@@ -20,11 +20,9 @@ import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
-import Dropdown from "../components/Dropdown";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
 import { auth } from "../firebase";
-import CustomSwitch from "./CustomSwitch";
 import { Avatar, Caption, Title } from "react-native-paper";
 // Firebase imports
 import { db } from "../firebase";
@@ -275,6 +273,24 @@ const Room2 = ({ navigation }) => {
       UTI: "com.microsoft.excel.xlsx",
     });
   };
+  const [employees, setEmployees] = useState([]);
+  const employeesCollectionRef = collection(db, "employees");
+  // Read employee data
+  useEffect(() => {
+    onSnapshot(employeesCollectionRef, (snapshot) =>
+      setEmployees(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    );
+  }, []);
+
+  // Logout
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigation.replace("Login")
+      })
+      .catch(error => alert(error.message))
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -285,16 +301,41 @@ const Room2 = ({ navigation }) => {
             marginTop: 30,
             marginHorizontal: 20,
             flexDirection: "row",
-
-            // justifyContent: "space-between",
-            // alignItems: "center",
           }}
         >
-          <View style={styles.doctorInfo}>
-            <Text style={styles.profileName}>Doctor John</Text>
-            <Text style={styles.profileEmail}>{auth.currentUser?.email}</Text>
-          </View>
+          {employees.map((employee) => {
+            return (
+              <View>
+                {employee.Email == `${auth.currentUser?.email}` ? (
+                  <View style={styles.userInfo}>
+                    <View>
+                      <Avatar.Text
+                        size={80}
+                        color="white"
+                        label={employee.Name[0]}
+                        style={{ backgroundColor: 'rgb(192,170,140)' }}
+                      />
+                    </View>
+                  </View >
+                )
+                  : null}
+              </View>
+            );
+          })}
         </View>
+        {employees.map((employee) => {
+          return (
+            <View>
+              {employee.Email == `${auth.currentUser?.email}` ? (
+                <View style={styles.doctorInfo}>
+                  <Text style={styles.profileName}>{employee.Name}</Text>
+                  <Text style={styles.profileEmail}>{`${auth.currentUser?.email}`}</Text>
+                </View>
+              )
+                : null}
+            </View>
+          );
+        })}
         <TouchableOpacity onPress={handleExport}>
           <View style={styles.exportButton}>
             <Text style={styles.darkModeText}>Export</Text>
@@ -311,7 +352,10 @@ const Room2 = ({ navigation }) => {
             marginLeft={10}
           />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={handleSignOut}
+          style={styles.logoutbutton}
+        >
           <Text style={styles.logOut}>Log Out</Text>
         </TouchableOpacity>
       </View>
@@ -387,14 +431,25 @@ const Room2 = ({ navigation }) => {
                   navigation.navigate("Profile");
                 }}
               >
-                <View>
-                  <Avatar.Text
-                    size={60}
-                    color="white"
-                    label={`${auth.currentUser?.email[0]}`}
-                    style={{ backgroundColor: 'rgb(192,170,140)' }}
-                  />
-                </View>
+                {employees.map((employee) => {
+                  return (
+                    <View>
+                      {employee.Email == `${auth.currentUser?.email}` ? (
+                        <View style={styles.userInfo}>
+                          <View>
+                            <Avatar.Text
+                              size={55}
+                              color="white"
+                              label={employee.Name[0]}
+                              style={{ backgroundColor: 'rgb(192,170,140)' }}
+                            />
+                          </View>
+                        </View >
+                      )
+                        : null}
+                    </View>
+                  );
+                })}
               </TouchableOpacity>
             </View>
           </View>
