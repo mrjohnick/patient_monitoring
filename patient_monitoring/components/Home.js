@@ -1,8 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
+<<<<<<< HEAD
 import { View, Text, Button, StyleSheet, ScrollView, SafeAreaView, Image, FlatList, TouchableOpacity, Modal, Dimensions, TouchableWithoutFeedback, Switch, Animated } from "react-native";
+=======
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  Modal,
+  Dimensions,
+  TouchableWithoutFeedback,
+  Switch,
+  Animated,
+} from "react-native";
+import colors from "../assets/colors/colors";
+import patientData from "../assets/data/patientData";
+import Feather from "react-native-vector-icons/Feather";
+import Ionicicon from "react-native-vector-icons/Ionicons";
+>>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 import { MaterialIcons } from "@expo/vector-icons";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
+<<<<<<< HEAD
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
 
@@ -11,6 +35,12 @@ import patientData from "../assets/data/patientData";
 import profile from "../assets/images/person.png";
 import styled from 'styled-components/native';
 
+=======
+import { auth } from "../firebase";
+import CustomSwitch from "./CustomSwitch";
+import { Avatar, Caption, Title } from "react-native-paper";
+// import { Export, handleExport } from "./Export";
+>>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 
 // Firebase imports
 import { db } from "../firebase";
@@ -264,12 +294,16 @@ const Home = ({ navigation }) => {
             marginTop: 30,
             marginHorizontal: 20,
             flexDirection: "row",
-
-            // justifyContent: "space-between",
-            // alignItems: "center",
           }}
         >
-          <Image source={profile} style={styles.profileImageDrawer}></Image>
+          <View>
+          <Avatar.Text
+            size={100}
+            color="white"
+            label={`${auth.currentUser?.email[0]}`}
+            style={{ backgroundColor: 'rgb(192,170,140)' }}
+          />
+        </View>
           <View style={styles.doctorInfo}>
             <Text style={styles.profileName}>Doctor John</Text>
             <Text style={styles.profileEmail}>{auth.currentUser?.email}</Text>
@@ -355,20 +389,19 @@ const Home = ({ navigation }) => {
                   style={styles.menuIcon}
                 />
               </TouchableOpacity>
-              {/* <CustomSwitch
-                selectionMode={1}
-                roundCorner={true}
-                option1={"Room 1"}
-                option2={"Room 2"}
-                onSelectSwitch={onSelectSwitch}
-                selectionColor={colors.blue}
-              /> */}
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Profile");
                 }}
               >
-                <Image source={profile} style={styles.profileImage} />
+                <View>
+                  <Avatar.Text
+                    size={60}
+                    color="white"
+                    label={`${auth.currentUser?.email[0]}`}
+                    style={{ backgroundColor: 'rgb(192,170,140)' }}
+                  />
+                </View>
               </TouchableOpacity>
             </View>
           </View>

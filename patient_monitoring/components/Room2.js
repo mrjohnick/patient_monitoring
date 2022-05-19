@@ -19,11 +19,15 @@ import colors from "../assets/colors/colors";
 import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
-import profile from "../assets/images/person.png";
 import { MaterialIcons } from "@expo/vector-icons";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
 import { auth } from "../firebase";
+<<<<<<< HEAD
+=======
+import CustomSwitch from "./CustomSwitch";
+import { Avatar, Caption, Title } from "react-native-paper";
+>>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 // Firebase imports
 import { db } from "../firebase";
 import {
@@ -288,7 +292,6 @@ const Room2 = ({ navigation }) => {
             // alignItems: "center",
           }}
         >
-          <Image source={profile} style={styles.profileImageDrawer}></Image>
           <View style={styles.doctorInfo}>
             <Text style={styles.profileName}>Doctor John</Text>
             <Text style={styles.profileEmail}>{auth.currentUser?.email}</Text>
@@ -380,20 +383,20 @@ const Room2 = ({ navigation }) => {
                   style={styles.menuIcon}
                 />
               </TouchableOpacity>
-              {/* <CustomSwitch
-                selectionMode={1}
-                roundCorner={true}
-                option1={"Room 1"}
-                option2={"Room 2"}
-                onSelectSwitch={onSelectSwitch}
-                selectionColor={colors.blue}
-              /> */}
+                          
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Profile");
                 }}
               >
-                <Image source={profile} style={styles.profileImage} />
+                <View>
+                  <Avatar.Text
+                    size={60}
+                    color="white"
+                    label={`${auth.currentUser?.email[0]}`}
+                    style={{ backgroundColor: 'rgb(192,170,140)' }}
+                  />
+                </View>
               </TouchableOpacity>
             </View>
           </View>
