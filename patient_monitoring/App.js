@@ -45,7 +45,7 @@ const TabNavigator = () => {
           ),
         }}
       />
-    <Tab.Screen
+      <Tab.Screen
         name="Room2"
         component={Room2}
         options={{
@@ -92,19 +92,33 @@ const App = () => {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{ headerShown: false }} />
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Profile"
           component={Profile}
-          options={{ headerShown: false }} />
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="EditProfile"
           component={Edit}
-          options={{ title: "", headerBackTitle: "Profile", headerTransparent: true, headerTintColor: "brightblue" }} />
+          options={{
+            title: "",
+            headerBackTitle: "Profile",
+            headerTransparent: true,
+            headerTintColor: "brightblue",
+          }}
+        />
         <Stack.Screen
           name="NewPassword"
           component={NewPassword}
-          options={{ title: "", headerBackTitle: "Login", headerTransparent: true, headerTintColor: "brightblue" }} />
+          options={{
+            title: "",
+            headerBackTitle: "Login",
+            headerTransparent: true,
+            headerTintColor: "brightblue",
+          }}
+        />
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
@@ -120,6 +134,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white1,
   },
 });
-
 
 export default App;
