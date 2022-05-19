@@ -380,7 +380,11 @@ const Room2 = ({ navigation }) => {
                   style={styles.menuIcon}
                 />
               </TouchableOpacity>
+<<<<<<< HEAD
 
+=======
+                          
+>>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Profile");

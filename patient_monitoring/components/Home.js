@@ -23,6 +23,9 @@ import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
+=======
 >>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 =======
 >>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
