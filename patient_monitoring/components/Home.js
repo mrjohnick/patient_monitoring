@@ -1,45 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  Modal,
-  Dimensions,
-  TouchableWithoutFeedback,
-  Switch,
-  Animated,
-} from "react-native";
-import colors from "../assets/colors/colors";
-import patientData from "../assets/data/patientData";
-import Feather from "react-native-vector-icons/Feather";
-import Ionicicon from "react-native-vector-icons/Ionicons";
-import profile from "../assets/images/person.png";
+import { View, Text, Button, StyleSheet, ScrollView, SafeAreaView, Image, FlatList, TouchableOpacity, Modal, Dimensions, TouchableWithoutFeedback, Switch, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import Dropdown from "../components/Dropdown";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
-import { auth } from "../firebase";
-import CustomSwitch from "./CustomSwitch";
-// import { Export, handleExport } from "./Export";
+import Feather from "react-native-vector-icons/Feather";
+import Ionicicon from "react-native-vector-icons/Ionicons";
+
+import colors from "../assets/colors/colors";
+import patientData from "../assets/data/patientData";
+import profile from "../assets/images/person.png";
+import styled from 'styled-components/native';
+
 
 // Firebase imports
 import { db } from "../firebase";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, onSnapshot } from "firebase/firestore";
 import "react-native-gesture-handler";
+import { auth } from "../firebase";
 import { heartGraph2, oxygenGraph2, breathGraph2 } from "./Room2";
 import XLSX from "xlsx";
 import * as FileSystem from "expo-file-system";
@@ -236,7 +213,7 @@ const Home = ({ navigation }) => {
     alert("Selected index: " + index);
   };
 
-  // export
+  // Export
 
   var room1 = [
     ["Heart"],
@@ -306,12 +283,8 @@ const Home = ({ navigation }) => {
         <View style={styles.darkMode}>
           <Text style={styles.darkModeText}>Dark Mode</Text>
           <Switch
-            trackColor={{ false: "#767577", true: "#236BFD" }}
-            thumbColor={isEnabled ? "#5dd4b" : "#f4f3f4"}
-            ios_backgroundColor="#767577"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-            marginLeft={10}
+            value={theme.mode === 'dark'}
+            onValueChange={value => theme.setMode(value ? 'dark' : 'light')}
           />
         </View>
         <TouchableOpacity>
@@ -427,7 +400,7 @@ const Home = ({ navigation }) => {
                     <View>
                       {patient.room == "1" ? (
                         <View>
-                           {/*Modal. Setting modal visible=false so it doesnt show on default.
+                          {/*Modal. Setting modal visible=false so it doesnt show on default.
                            The following code is for the pop-up window*/}
                           <Modal
                             visible={hmodalOpen}
@@ -444,7 +417,7 @@ const Home = ({ navigation }) => {
                                   style={styles.modalClose}
                                   onPress={() => SetHmodalOpen(false)}
                                 />
-                                 {/*Displaying chart inside the modal*/}
+                                {/*Displaying chart inside the modal*/}
                                 <View>
                                   <LineChart
                                     data={dataHeart}
