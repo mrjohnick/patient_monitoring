@@ -91,7 +91,7 @@ const Edit = () => {
         <Title style={styles.header}> Edit user </Title>
         {employees.map((employee) => {
           return (
-            <View style={styles.inputContainer}>
+            <View >
               {employee.Email == `${auth.currentUser?.email}` ? (
                 <SafeAreaView>
                   <View style={styles.inputContainer}>
@@ -183,12 +183,12 @@ const styles = StyleSheet.create({
     transform: [{ translateY: -70 }],
   },
   inputContainer: {
-    width: "80%",
+    width: "100%",
     height: "30%",
     marginBottom: 80,
   },
   radioButtons: {
-    width: "90%",
+    width: "100%",
     marginLeft: "1%",
     marginBottom: "3%",
   },
