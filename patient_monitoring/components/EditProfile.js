@@ -100,6 +100,8 @@ const Edit = () => {
                     }}
                     style={styles.input}
                     maxLength={9}
+                    keyboardType="number-pad"
+                    returnKeyType="done"
                   />
                 </View>
 
