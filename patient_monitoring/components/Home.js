@@ -26,6 +26,8 @@ import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
 import { auth } from "../firebase";
 import CustomSwitch from "./CustomSwitch";
+// import { Export, handleExport } from "./Export";
+
 // Firebase imports
 import { db } from "../firebase";
 import {
@@ -38,6 +40,10 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import "react-native-gesture-handler";
+import { heartGraph2, oxygenGraph2, breathGraph2 } from "./Room2";
+import XLSX from "xlsx";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
 
 // Global arrays for charts, each value initialized to 0
 export const heartGraph = [71, 68, 72, 66, 81, 75, 89, 85, 83, 79];
@@ -230,6 +236,48 @@ const Home = ({ navigation }) => {
     alert("Selected index: " + index);
   };
 
+  // export
+
+  var room1 = [
+    ["Heart"],
+    heartGraph,
+    ["Oxygen"],
+    oxygenGraph,
+    ["Breath"],
+    breathGraph,
+  ];
+  // Change data to room 2 data when created.
+  var room2 = [
+    ["Heart"],
+    heartGraph2,
+    ["Oxygen"],
+    oxygenGraph2,
+    ["Breath"],
+    breathGraph2,
+  ];
+  const handleExport = async () => {
+    var ws = XLSX.utils.aoa_to_sheet(room1);
+    var ws2 = XLSX.utils.aoa_to_sheet(room2);
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Room 1");
+    XLSX.utils.book_append_sheet(wb, ws2, "Room 2");
+    const wbout = XLSX.write(wb, {
+      type: "base64",
+      bookType: "xlsx",
+    });
+    const uri = FileSystem.cacheDirectory + "patients.xlsx";
+    await FileSystem.writeAsStringAsync(uri, wbout, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    await Sharing.shareAsync(uri, {
+      mimeType:
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      dialogTitle: "MyWater data",
+      UTI: "com.microsoft.excel.xlsx",
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -250,6 +298,11 @@ const Home = ({ navigation }) => {
             <Text style={styles.profileEmail}>{auth.currentUser?.email}</Text>
           </View>
         </View>
+        <TouchableOpacity onPress={handleExport}>
+          <View style={styles.exportButton}>
+            <Text style={styles.darkModeText}>Export</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.darkMode}>
           <Text style={styles.darkModeText}>Dark Mode</Text>
           <Switch
@@ -331,15 +384,21 @@ const Home = ({ navigation }) => {
                   style={styles.menuIcon}
                 />
               </TouchableOpacity>
-              <CustomSwitch
+              {/* <CustomSwitch
                 selectionMode={1}
                 roundCorner={true}
                 option1={"Room 1"}
                 option2={"Room 2"}
                 onSelectSwitch={onSelectSwitch}
                 selectionColor={colors.blue}
-              />
-              <Image source={profile} style={styles.profileImage} />
+              /> */}
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Profile");
+                }}
+              >
+                <Image source={profile} style={styles.profileImage} />
+              </TouchableOpacity>
             </View>
           </View>
           <ScrollView>
@@ -684,6 +743,12 @@ const styles = StyleSheet.create({
   },
 
   darkMode: {
+    marginTop: 30,
+    marginLeft: 27,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  exportButton: {
     marginTop: 43,
     marginLeft: 27,
     flexDirection: "row",

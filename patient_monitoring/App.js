@@ -45,30 +45,12 @@ const TabNavigator = () => {
           ),
         }}
       />
-    <Tab.Screen
+      <Tab.Screen
         name="Room2"
         component={Room2}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="looks-two" size={28} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Export"
-        component={Export}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="download-outline" size={28} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="person-outline" size={28} color={color} />
           ),
         }}
       />
@@ -92,19 +74,39 @@ const App = () => {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{ headerShown: false }} />
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Profile"
           component={Profile}
-          options={{ headerShown: false }} />
+          options={{
+            headerShown: true,
+            title: "",
+            headerBackTitle: "Home",
+            headerTransparent: true,
+            headerTintColor: "brightblue",
+          }}
+        />
         <Stack.Screen
           name="EditProfile"
           component={Edit}
-          options={{ title: "", headerBackTitle: "Profile", headerTransparent: true, headerTintColor: "brightblue" }} />
+          options={{
+            title: "",
+            headerBackTitle: "Profile",
+            headerTransparent: true,
+            headerTintColor: "brightblue",
+          }}
+        />
         <Stack.Screen
           name="NewPassword"
           component={NewPassword}
-          options={{ title: "", headerBackTitle: "Login", headerTransparent: true, headerTintColor: "brightblue" }} />
+          options={{
+            title: "",
+            headerBackTitle: "Login",
+            headerTransparent: true,
+            headerTintColor: "brightblue",
+          }}
+        />
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
@@ -120,6 +122,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white1,
   },
 });
-
 
 export default App;
