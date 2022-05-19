@@ -20,6 +20,7 @@ import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
+import Dropdown from "../components/Dropdown";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
 import { auth } from "../firebase";
@@ -380,11 +381,7 @@ const Room2 = ({ navigation }) => {
                   style={styles.menuIcon}
                 />
               </TouchableOpacity>
-<<<<<<< HEAD
 
-=======
-                          
->>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Profile");

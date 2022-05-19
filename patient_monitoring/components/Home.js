@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-<<<<<<< HEAD
-import { View, Text, Button, StyleSheet, ScrollView, SafeAreaView, Image, FlatList, TouchableOpacity, Modal, Dimensions, TouchableWithoutFeedback, Switch, Animated } from "react-native";
-=======
 import {
   View,
   Text,
@@ -22,37 +19,27 @@ import colors from "../assets/colors/colors";
 import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
-=======
->>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
-=======
->>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 import { MaterialIcons } from "@expo/vector-icons";
+import Dropdown from "../components/Dropdown";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
-<<<<<<< HEAD
-import Feather from "react-native-vector-icons/Feather";
-import Ionicicon from "react-native-vector-icons/Ionicons";
-
-import colors from "../assets/colors/colors";
-import patientData from "../assets/data/patientData";
-import profile from "../assets/images/person.png";
-import styled from 'styled-components/native';
-
-=======
 import { auth } from "../firebase";
 import CustomSwitch from "./CustomSwitch";
 import { Avatar, Caption, Title } from "react-native-paper";
 // import { Export, handleExport } from "./Export";
->>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 
 // Firebase imports
 import { db } from "../firebase";
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import "react-native-gesture-handler";
-import { auth } from "../firebase";
 import { heartGraph2, oxygenGraph2, breathGraph2 } from "./Room2";
 import XLSX from "xlsx";
 import * as FileSystem from "expo-file-system";
@@ -249,7 +236,7 @@ const Home = ({ navigation }) => {
     alert("Selected index: " + index);
   };
 
-  // Export
+  // export
 
   var room1 = [
     ["Heart"],
@@ -303,13 +290,13 @@ const Home = ({ navigation }) => {
           }}
         >
           <View>
-          <Avatar.Text
-            size={100}
-            color="white"
-            label={`${auth.currentUser?.email[0]}`}
-            style={{ backgroundColor: 'rgb(192,170,140)' }}
-          />
-        </View>
+            <Avatar.Text
+              size={100}
+              color="white"
+              label={`${auth.currentUser?.email[0]}`}
+              style={{ backgroundColor: 'rgb(192,170,140)' }}
+            />
+          </View>
           <View style={styles.doctorInfo}>
             <Text style={styles.profileName}>Doctor John</Text>
             <Text style={styles.profileEmail}>{auth.currentUser?.email}</Text>
@@ -323,6 +310,12 @@ const Home = ({ navigation }) => {
         <View style={styles.darkMode}>
           <Text style={styles.darkModeText}>Dark Mode</Text>
           <Switch
+            trackColor={{ false: "#767577", true: "#236BFD" }}
+            thumbColor={isEnabled ? "#5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#767577"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+            marginLeft={10}
           />
         </View>
         <TouchableOpacity>
