@@ -66,13 +66,13 @@ const Edit = () => {
 
   const CheckHandler = async (id, checked) => {
     const employeeDoc = doc(db, "employees", id);
-    const newFields = {Gender: checked };
+    const newFields = { Gender: checked };
     await updateDoc(employeeDoc, newFields);
   };
 
   const EmailHandler = async (id, email) => {
     const employeeDoc = doc(db, "employees", id);
-    const newFields = { Email: email};
+    const newFields = { Email: email };
     await updateDoc(employeeDoc, newFields);
     navigation.replace("TabNavigator");
   };
@@ -111,38 +111,38 @@ const Edit = () => {
                     maxLength={9}
                   />
                 </View>
-                
+
                 <View style={styles.radioButtons}>
                   <RadioButton.Group>
                     <RadioButton.Item
-                      mode="android"
                       position="trailing"
                       label="Male"
                       color="#778899"
                       value="Male"
-                      status={employee.Gender === "Male" ? "checked" : "unchecked"}
-                      onPress={(value) => CheckHandler(employee.id,"Male")}
-                      style={styles.radio}
+                      status={
+                        employee.Gender === "Male" ? "checked" : "unchecked"
+                      }
+                      onPress={(value) => CheckHandler(employee.id, "Male")}
                     />
                     <RadioButton.Item
-                      mode="android"
                       position="trailing"
                       label="Female"
                       color="#778899"
                       value="Female"
-                      status={employee.Gender === "Female" ? "checked" : "unchecked"}
-                      onPress={() => CheckHandler(employee.id,"Female")}
-                      style={styles.radio}
+                      status={
+                        employee.Gender === "Female" ? "checked" : "unchecked"
+                      }
+                      onPress={() => CheckHandler(employee.id, "Female")}
                     />
-                  <RadioButton.Item
-                      mode="android"
+                    <RadioButton.Item
                       position="trailing"
                       label="Other"
                       color="#778899"
                       value="Other"
-                      status={employee.Gender === "Other" ? "checked" : "unchecked"}
-                      onPress={() => CheckHandler(employee.id,"Other")}
-                      style={styles.radio}
+                      status={
+                        employee.Gender === "Other" ? "checked" : "unchecked"
+                      }
+                      onPress={() => CheckHandler(employee.id, "Other")}
                     />
                   </RadioButton.Group>
                 </View>
@@ -170,12 +170,12 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "80%",
     height: "30%",
+    marginBottom: 80,
   },
   radioButtons: {
     width: "90%",
     marginLeft: "1%",
     marginBottom: "3%",
-    top: 80,
   },
   radio: {
     marginBottom: 10,

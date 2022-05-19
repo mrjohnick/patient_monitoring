@@ -405,12 +405,16 @@ const Home = ({ navigation }) => {
                                 </View>
                                 <View style={styles.averageContainer}>
                                   <View style={styles.averageBoxLeft}>
-                                    <Text style={styles.averageText}>Average BPM:{"\n"}
-                                      {avg(heartGraph)}</Text>
+                                    <Text style={styles.averageText}>
+                                      Average BPM:{"\n"}
+                                      {avg(heartGraph)}
+                                    </Text>
                                   </View>
                                   <View style={styles.averageBoxRight}>
-                                    <Text style={styles.averageText}>Last BPM:{"\n"}
-                                      {patient.Heart}</Text>
+                                    <Text style={styles.averageText}>
+                                      Last BPM:{"\n"}
+                                      {patient.Heart}
+                                    </Text>
                                   </View>
                                 </View>
                               </View>
@@ -482,12 +486,16 @@ const Home = ({ navigation }) => {
                                       </View>
                                       <View style={styles.averageContainer}>
                                         <View style={styles.averageBoxLeft}>
-                                          <Text style={styles.averageText}>Average SPO2:{"\n"}
-                                            {avg(oxygenGraph)}</Text>
+                                          <Text style={styles.averageText}>
+                                            Average SPO2:{"\n"}
+                                            {avg(oxygenGraph)}
+                                          </Text>
                                         </View>
                                         <View style={styles.averageBoxRight}>
-                                          <Text style={styles.averageText}>Last SPO2:{"\n"}
-                                            {patient.Oxygen}</Text>
+                                          <Text style={styles.averageText}>
+                                            Last SPO2:{"\n"}
+                                            {patient.Oxygen}
+                                          </Text>
                                         </View>
                                       </View>
                                     </View>
@@ -563,12 +571,16 @@ const Home = ({ navigation }) => {
                                       </View>
                                       <View style={styles.averageContainer}>
                                         <View style={styles.averageBoxLeft}>
-                                          <Text style={styles.averageText}>Average BR:{"\n"}
-                                            {avg(breathGraph)}</Text>
+                                          <Text style={styles.averageText}>
+                                            Average BR:{"\n"}
+                                            {avg(breathGraph)}
+                                          </Text>
                                         </View>
                                         <View style={styles.averageBoxRight}>
-                                          <Text style={styles.averageText}>Last BR:{"\n"}
-                                            {patient.Breath}</Text>
+                                          <Text style={styles.averageText}>
+                                            Last BR:{"\n"}
+                                            {patient.Breath}
+                                          </Text>
                                         </View>
                                       </View>
                                     </View>
@@ -852,14 +864,14 @@ const styles = StyleSheet.create({
   },
   averageContainer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     flexWrap: "wrap",
   },
   averageText: {
     fontFamily: "Montserrat_400Regular",
     fontSize: 15,
     color: colors.grey1,
-    textAlign: 'center',
+    textAlign: "center",
     padding: 5,
   },
 });
