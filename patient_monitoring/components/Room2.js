@@ -23,11 +23,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { BarChart, LineChart } from "react-native-chart-kit";
 import { LogBox } from "react-native";
 import { auth } from "../firebase";
-<<<<<<< HEAD
-=======
 import CustomSwitch from "./CustomSwitch";
 import { Avatar, Caption, Title } from "react-native-paper";
->>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 // Firebase imports
 import { db } from "../firebase";
 import {
@@ -383,7 +380,7 @@ const Room2 = ({ navigation }) => {
                   style={styles.menuIcon}
                 />
               </TouchableOpacity>
-                          
+
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Profile");

@@ -22,6 +22,9 @@ import colors from "../assets/colors/colors";
 import patientData from "../assets/data/patientData";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicicon from "react-native-vector-icons/Ionicons";
+<<<<<<< HEAD
+>>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
+=======
 >>>>>>> 88f53bad2580efe5fcd1c7c2662ba00a00371840
 import { MaterialIcons } from "@expo/vector-icons";
 import { BarChart, LineChart } from "react-native-chart-kit";
