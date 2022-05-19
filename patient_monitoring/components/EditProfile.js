@@ -79,7 +79,6 @@ const Edit = () => {
 
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
       <View style={styles.profileHeader}>
         <TouchableOpacity
           style={styles.backIcon}
@@ -103,57 +102,6 @@ const Edit = () => {
                         NameHandler(employee.id, event);
                       }}
                       style={styles.input}
-=======
-      <Title style={styles.header}> Edit user </Title>
-      {employees.map((employee) => {
-        return (
-          <View>
-            {employee.Email == `${auth.currentUser?.email}` ? (
-              <SafeAreaView>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    placeholder="Username"
-                    defaultValue={employee.Name}
-                    onChangeText={(event) => {
-                      NameHandler(employee.id, event);
-                    }}
-                    style={styles.input}
-                  />
-                  <TextInput
-                    placeholder="Phone number"
-                    defaultValue={employee.Phone}
-                    onChangeText={(event) => {
-                      PhoneHandler(employee.id, event.replace(/[^0-9]/g, ""));
-                    }}
-                    style={styles.input}
-                    maxLength={9}
-                    keyboardType="number-pad"
-                    returnKeyType="done"
-                  />
-                </View>
-
-                <View style={styles.radioButtons}>
-                  <RadioButton.Group>
-                    <RadioButton.Item
-                      position="trailing"
-                      label="Male"
-                      color="#778899"
-                      value="Male"
-                      status={
-                        employee.Gender === "Male" ? "checked" : "unchecked"
-                      }
-                      onPress={(value) => CheckHandler(employee.id, "Male")}
-                    />
-                    <RadioButton.Item
-                      position="trailing"
-                      label="Female"
-                      color="#778899"
-                      value="Female"
-                      status={
-                        employee.Gender === "Female" ? "checked" : "unchecked"
-                      }
-                      onPress={() => CheckHandler(employee.id, "Female")}
->>>>>>> 15bab59793efa88d1dd8c6c543f57c1edd35a34f
                     />
                     <TextInput
                       placeholder="Phone number"
