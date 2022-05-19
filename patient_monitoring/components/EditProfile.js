@@ -21,6 +21,8 @@ import {
 
 import { auth, db } from "../firebase";
 import * as Login from "./Login";
+import Feather from "react-native-vector-icons/Feather";
+import colors from "../assets/colors/colors";
 import * as Profile from "./Profile";
 import TabNavigator from "../App";
 import {
@@ -77,71 +79,81 @@ const Edit = () => {
 
   return (
     <View style={styles.container}>
-      <Title style={styles.header}> Edit user </Title>
-      {employees.map((employee) => {
-        return (
-          <View style={styles.inputContainer}>
-            {employee.Email == `${auth.currentUser?.email}` ? (
-              <SafeAreaView>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    placeholder="Username"
-                    defaultValue={employee.Name}
-                    onChangeText={(event) => {
-                      NameHandler(employee.id, event);
-                    }}
-                    style={styles.input}
-                  />
-                  <TextInput
-                    placeholder="Phone number"
-                    defaultValue={employee.Phone}
-                    onChangeText={(event) => {
-                      PhoneHandler(employee.id, event.replace(/[^0-9]/g, ""));
-                    }}
-                    style={styles.input}
-                    maxLength={9}
-                  />
-                </View>
+      <View style={styles.profileHeader}>
+        <TouchableOpacity
+          style={styles.backIcon}
+          onPress={() => navigation.goBack()}
+        >
+          <Feather name="chevron-left" size={32} color={colors.white} />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.editProfileWrapper}>
+        <Title style={styles.header}> Edit user </Title>
+        {employees.map((employee) => {
+          return (
+            <View style={styles.inputContainer}>
+              {employee.Email == `${auth.currentUser?.email}` ? (
+                <SafeAreaView>
+                  <View style={styles.inputContainer}>
+                    <TextInput
+                      placeholder="Username"
+                      defaultValue={employee.Name}
+                      onChangeText={(event) => {
+                        NameHandler(employee.id, event);
+                      }}
+                      style={styles.input}
+                    />
+                    <TextInput
+                      placeholder="Phone number"
+                      defaultValue={employee.Phone}
+                      onChangeText={(event) => {
+                        PhoneHandler(employee.id, event.replace(/[^0-9]/g, ""));
+                      }}
+                      style={styles.input}
+                      maxLength={9}
+                    />
+                  </View>
 
-                <View style={styles.radioButtons}>
-                  <RadioButton.Group>
-                    <RadioButton.Item
-                      position="trailing"
-                      label="Male"
-                      color="#778899"
-                      value="Male"
-                      status={
-                        employee.Gender === "Male" ? "checked" : "unchecked"
-                      }
-                      onPress={(value) => CheckHandler(employee.id, "Male")}
-                    />
-                    <RadioButton.Item
-                      position="trailing"
-                      label="Female"
-                      color="#778899"
-                      value="Female"
-                      status={
-                        employee.Gender === "Female" ? "checked" : "unchecked"
-                      }
-                      onPress={() => CheckHandler(employee.id, "Female")}
-                    />
-                    <RadioButton.Item
-                      position="trailing"
-                      label="Other"
-                      color="#778899"
-                      value="Other"
-                      status={
-                        employee.Gender === "Other" ? "checked" : "unchecked"
-                      }
-                      onPress={() => CheckHandler(employee.id, "Other")}
-                    />
-                  </RadioButton.Group>
-                </View>
-              </SafeAreaView>
-            ) : null}
-          </View>
-        );
-      })}
+                  <View style={styles.radioButtons}>
+                    <RadioButton.Group>
+                      <RadioButton.Item
+                        position="trailing"
+                        label="Male"
+                        color="#778899"
+                        value="Male"
+                        status={
+                          employee.Gender === "Male" ? "checked" : "unchecked"
+                        }
+                        onPress={(value) => CheckHandler(employee.id, "Male")}
+                      />
+                      <RadioButton.Item
+                        position="trailing"
+                        label="Female"
+                        color="#778899"
+                        value="Female"
+                        status={
+                          employee.Gender === "Female" ? "checked" : "unchecked"
+                        }
+                        onPress={() => CheckHandler(employee.id, "Female")}
+                      />
+                      <RadioButton.Item
+                        position="trailing"
+                        label="Other"
+                        color="#778899"
+                        value="Other"
+                        status={
+                          employee.Gender === "Other" ? "checked" : "unchecked"
+                        }
+                        onPress={() => CheckHandler(employee.id, "Other")}
+                      />
+                    </RadioButton.Group>
+                  </View>
+                </SafeAreaView>
+              ) : null}
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 };
@@ -150,13 +162,24 @@ export default Edit;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    marginTop: "50%",
+    flex: 1,
   },
+  editProfileWrapper: {
+    alignItems: "center",
+    marginTop: "30%",
+  },
+  profileHeader: {
+    marginHorizontal: 20,
+    marginTop: 60,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
   header: {
     fontSize: 23,
     opacity: 0.9,
-    fontWeight: '700',
+    fontWeight: "700",
     transform: [{ translateY: -70 }],
   },
   inputContainer: {
